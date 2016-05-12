@@ -52,4 +52,12 @@ class Gateway extends BaseGateway
 
         return new Response($this, $transaction, []);
     }
+
+    /**
+     * @return array
+     */
+    public function getSupportedCurrencies()
+    {
+        return ['MNT'];
+    }
 }

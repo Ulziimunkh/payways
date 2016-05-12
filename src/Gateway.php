@@ -32,6 +32,14 @@ abstract class Gateway
     }
 
     /**
+     * @return array
+     */
+    public function getSupportedCurrencies()
+    {
+        return [];
+    }
+
+    /**
      * @param Transaction $transaction
      * @return ResponseInterface
      * @throws ConnectionException
@@ -88,11 +96,15 @@ abstract class Gateway
 
     /**
      * @param Transaction $transaction
-     * @throws AlreadyCompletedTransactionException
+     * @throws \GatewayException
      */
     private function beforeSend(Transaction $transaction)
     {
-        if (!$transaction->isPending()) {
+        if(! in_array($transaction->getCurrency()->getCode(), $this->getSupportedCurrencies())) {
+            throw new GatewayException($this, 'Unsupported currency exception');
+        }
+
+        if (! $transaction->isPending()) {
             throw new AlreadyCompletedTransactionException($transaction, $this, 'Transaction is not pending.');
         }
     }

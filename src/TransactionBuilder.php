@@ -34,10 +34,13 @@ class TransactionBuilder
 
     /**
      * @param BillableInterface $billable
+     * @return $this
      */
     public function billable(BillableInterface $billable)
     {
         $this->billable = $billable;
+
+        return $this;
     }
 
     /**

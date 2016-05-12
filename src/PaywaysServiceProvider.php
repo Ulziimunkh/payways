@@ -21,6 +21,7 @@ class PaywaysServiceProvider extends ServiceProvider
     {
         $this->registerLog();
         $this->registerKhan();
+        $this->registerGolomt();
     }
 
     /**
@@ -58,5 +59,15 @@ class PaywaysServiceProvider extends ServiceProvider
     private function registerKhan()
     {
         $this->app->bind('payways.khan', 'Selmonal\Payways\Gateways\Khan\Gateway');
+    }
+
+    /**
+     * Register a gateway for the Golomt Bank.
+     *
+     * @return void
+     */
+    private function registerGolomt()
+    {
+        $this->app->bind('payways.golomt', 'Selmonal\Payways\Gateways\Golomt\Gateway');
     }
 }

@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->string('billable_type')->nullable();
             $table->string('gateway', 10);
             $table->decimal('amount', 10, 2);
-            $table->integer('currency');
+            $table->string('currency', 3);
             $table->text('description', 160)->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->enum('response_status', ['pending', 'approved', 'declined', 'cancelled'])->default('pending');

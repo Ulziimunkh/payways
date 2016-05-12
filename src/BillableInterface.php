@@ -6,8 +6,8 @@ namespace Selmonal\Payways;
 interface BillableInterface
 {
     /**
-     * @return float
-     */
+ * @return float
+ */
     public function getAmount();
 
     /**

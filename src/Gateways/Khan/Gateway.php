@@ -117,7 +117,17 @@ class Gateway extends BaseGateway
      */
     public function getReturnUrl()
     {
-        return $this->config->get('payways.gateways.khan.returnUrl');
+        $uri = $this->config->get('payways.gateways.khan.returnUrl');
+
+        return url($uri);
+    }
+
+    /**
+     * @return array
+     */
+    public function getSupportedCurrencies()
+    {
+        return ['MNT'];
     }
 
     /**
@@ -142,6 +152,7 @@ class Gateway extends BaseGateway
             'amount' => $transaction->amount,
             'description' => $transaction->description,
             'orderNumber' => $transaction->getKey(),
+            'currency' => $transaction->getCurrency()->getNumeric(),
             'jsonParams' => [
                 'orderNumber' => $transaction->getKey()
             ],
