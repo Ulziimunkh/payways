@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-
 use Illuminate\Support\Facades\Facade;
 
 class PaywaysFacade extends Facade

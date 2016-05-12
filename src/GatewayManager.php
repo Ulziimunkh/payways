@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-
 use Illuminate\Support\Manager;
 
 class GatewayManager extends Manager
