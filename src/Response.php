@@ -153,14 +153,14 @@ abstract class Response
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Redirecting...</title>
+        <title>Түр хүлээнэ үү...</title>
     </head>
     <body onload="document.forms[0].submit();">
         <form action="%1$s" method="post">
-            <p>Redirecting to payment page...</p>
+            <p>Түр хүлээнэ үү...</p>
             <p>
                 %2$s
-                <input type="submit" value="Continue" />
+                <input type="submit" value="Үргэлжлүүлэх" />
             </p>
         </form>
     </body>

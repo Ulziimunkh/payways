@@ -4,12 +4,27 @@ namespace Selmonal\Payways;
 
 class Currency
 {
+    /**
+     * @var string
+     */
     private $code;
+
+    /**
+     * @var integer
+     */
     private $numeric;
+
+    /**
+     * @var integer
+     */
     private $decimals;
 
     /**
      * Create a new Currency object
+     *
+     * @param $code
+     * @param $numeric
+     * @param $decimals
      */
     private function __construct($code, $numeric, $decimals)
     {
