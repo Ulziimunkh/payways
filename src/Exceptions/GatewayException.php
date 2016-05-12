@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways\Exceptions;
 
-
 use RuntimeException;
 use Selmonal\Payways\Gateway;
 

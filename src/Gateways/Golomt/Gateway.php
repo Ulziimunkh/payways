@@ -37,7 +37,7 @@ class Gateway extends BaseGateway
     /**
      * @return string
      */
-    function getName()
+    public function getName()
     {
         return 'golomt';
     }
@@ -60,7 +60,7 @@ class Gateway extends BaseGateway
     {
         // Хэрвээ банкнаас буцаан дуудсан хүсэлт байгаад тэр нь амжилтгүй төлөвтэй байвал гүйлгээг
         // шууд амжилтгүй гэж үзэн soap шалгалт хийлгүйгээр Response буцаана.
-        if($this->request->get('success') == '1' && $this->request->get('trans_number') == $transaction->getKey()) {
+        if ($this->request->get('success') == '1' && $this->request->get('trans_number') == $transaction->getKey()) {
             return new CompleteProcessResponse(
                 $this,
                 $transaction,
@@ -87,7 +87,7 @@ class Gateway extends BaseGateway
 
         $responseCode = $result['Get_newResult'];
 
-        if($responseCode == 3) {
+        if ($responseCode == 3) {
             throw new ConnectionException($this, 'Hereglegchiin ner esvel nuuts ug buruu baina.');
         }
 

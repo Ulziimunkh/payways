@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-
 class Currency
 {
     private $code;

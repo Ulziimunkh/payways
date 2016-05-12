@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways\Gateways\Golomt;
 
-
 use Selmonal\Payways\Response;
 use Selmonal\Payways\Transaction;
 

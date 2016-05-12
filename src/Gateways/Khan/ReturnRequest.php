@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways\Gateways\Khan;
 
-
 use Illuminate\Http\Request;
 use Selmonal\Payways\Transaction;
 

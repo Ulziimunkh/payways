@@ -26,7 +26,7 @@ class Gateway extends BaseGateway
     /**
      * @return string
      */
-    function getName()
+    public function getName()
     {
         return 'log';
     }
@@ -35,7 +35,7 @@ class Gateway extends BaseGateway
      * @param Transaction $transaction
      * @return Response
      */
-    function sendProcess(Transaction $transaction)
+    public function sendProcess(Transaction $transaction)
     {
         $this->logger->info("Transaction [{$transaction->getKey()}] has processed. Amount: {$transaction->amount}, Currency: {$transaction->currency}, Description: {$transaction->description}");
 
@@ -46,7 +46,7 @@ class Gateway extends BaseGateway
      * @param Transaction $transaction
      * @return Response
      */
-    function sendCompleteProcess(Transaction $transaction)
+    public function sendCompleteProcess(Transaction $transaction)
     {
         $this->logger->info("Transaction [{$transaction->getKey()}] has completed. Amount: {$transaction->amount}, Currency: {$transaction->currency}, Description: {$transaction->description}");
 

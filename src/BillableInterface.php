@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-
 interface BillableInterface
 {
     /**

@@ -12,7 +12,7 @@ class ProcessResponse extends BaseResponse implements RedirectResponseInterface
      */
     public function getStatus()
     {
-        if(! $this->getTransactionReference()) {
+        if (! $this->getTransactionReference()) {
             return BaseResponse::STATUS_DECLINED;
         }
 
@@ -64,7 +64,7 @@ class ProcessResponse extends BaseResponse implements RedirectResponseInterface
      */
     public function getRedirectUrl()
     {
-        if(isset($this->data['formUrl'])) {
+        if (isset($this->data['formUrl'])) {
             return $this->data['formUrl'];
         }
     }
@@ -74,7 +74,7 @@ class ProcessResponse extends BaseResponse implements RedirectResponseInterface
      */
     public function getTransactionReference()
     {
-        if(isset($this->data['orderId'])) {
+        if (isset($this->data['orderId'])) {
             return $this->data['orderId'];
         }
     }

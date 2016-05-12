@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-
 class TransactionBuilder
 {
     /**
@@ -52,7 +51,7 @@ class TransactionBuilder
     {
         $transaction = Transaction::make($this->gateway, $this->attributes);
 
-        if($this->billable) {
+        if ($this->billable) {
             $transaction->setBillable($this->billable);
         }
 

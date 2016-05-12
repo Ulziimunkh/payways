@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-
 use Selmonal\Payways\Exceptions\AlreadyCompletedTransactionException;
 use Selmonal\Payways\Exceptions\ConnectionException;
 use Selmonal\Payways\Exceptions\GatewayException;
@@ -12,7 +11,7 @@ abstract class Gateway
     /**
      * @return string
      */
-    abstract function getName();
+    abstract public function getName();
 
     /**
      * @param Transaction $transaction
@@ -100,7 +99,7 @@ abstract class Gateway
      */
     private function beforeSend(Transaction $transaction)
     {
-        if(! in_array($transaction->getCurrency()->getCode(), $this->getSupportedCurrencies())) {
+        if (! in_array($transaction->getCurrency()->getCode(), $this->getSupportedCurrencies())) {
             throw new GatewayException($this, 'Unsupported currency exception');
         }
 

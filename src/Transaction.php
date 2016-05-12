@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -68,10 +67,10 @@ class Transaction extends Model
     {
         parent::boot();
 
-        static::saving(function(Transaction $transaction) {
+        static::saving(function (Transaction $transaction) {
 
-            if($transaction->isDirty('response_status')) {
-                if($transaction->attributes['response_status'] == Response::STATUS_APPROVED) {
+            if ($transaction->isDirty('response_status')) {
+                if ($transaction->attributes['response_status'] == Response::STATUS_APPROVED) {
                     $transaction->paid_at = Carbon::now();
                 }
             }

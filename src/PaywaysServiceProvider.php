@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-
 use Illuminate\Support\ServiceProvider;
 
 class PaywaysServiceProvider extends ServiceProvider

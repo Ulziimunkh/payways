@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways\Exceptions;
 
-
 use Selmonal\Payways\Gateway;
 use Selmonal\Payways\Transaction;
 

@@ -19,11 +19,11 @@ class CompleteProcessResponse extends BaseResponse
      */
     public function getStatus()
     {
-        if($this->getCode() == '2') {
+        if ($this->getCode() == '2') {
             return BaseResponse::STATUS_APPROVED;
         }
 
-        if($this->getCode() == '3') {
+        if ($this->getCode() == '3') {
             return BaseResponse::STATUS_CANCELLED;
         }
 

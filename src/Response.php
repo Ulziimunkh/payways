@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-
 use RuntimeException;
 use Symfony\Component\HttpFoundation\RedirectResponse as HttpRedirectResponse;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;

@@ -9,7 +9,6 @@ use Selmonal\Payways\Response;
 use Selmonal\Payways\Transaction;
 use Illuminate\Config\Repository as Config;
 
-
 class Gateway extends BaseGateway
 {
     const REGISTER_URL = 'https://epp.khanbank.com/payment/rest/register.do';
@@ -40,7 +39,7 @@ class Gateway extends BaseGateway
     /**
      * @return string
      */
-    function getName()
+    public function getName()
     {
         return 'khan';
     }
@@ -55,13 +54,13 @@ class Gateway extends BaseGateway
 
         $response = $this->send(static::REGISTER_URL, $parameters);
 
-        if(! $response->isSuccessful()) {
+        if (! $response->isSuccessful()) {
             throw new ConnectionException($this, (string) $response->getBody());
         }
 
         $data = $response->json();
 
-        if($data['errorCode'] != '0') {
+        if ($data['errorCode'] != '0') {
             throw new ConnectionException($this, $data['errorMessage'], $data['errorCode']);
         }
 
@@ -83,13 +82,13 @@ class Gateway extends BaseGateway
 
         $response = $this->send(static::VERIFY_URL, $parameters);
 
-        if(! $response->isSuccessful()) {
+        if (! $response->isSuccessful()) {
             throw new ConnectionException($this, (string) $response->getBody());
         }
 
         $data = $response->json();
 
-        if($data['ErrorCode'] != '0' && $data['ErrorCode'] != '2') {
+        if ($data['ErrorCode'] != '0' && $data['ErrorCode'] != '2') {
             throw new ConnectionException($this, $data['ErrorMessage'], $data['ErrorCode']);
         }
 
