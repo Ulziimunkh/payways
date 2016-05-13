@@ -146,27 +146,25 @@ class Transaction extends Model
     }
 
     /**
-     * The relation with the billable models.
+     * The relation with the payable models.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function billable()
+    public function payable()
     {
         return $this->morphTo();
     }
 
     /**
-     * Set the billable.
-     *
-     * @param BillableInterface $billable
+     * @param PayableInterface $payable
      */
-    public function setBillable(BillableInterface $billable)
+    public function setPayable(PayableInterface $payable)
     {
-        $this->billable()->associate($billable);
+        $this->payable()->associate($payable);
 
-        $this->amount      = $billable->getAmount();
-        $this->currency    = $billable->getCurrency();
-        $this->description = $billable->getDescription();
+        $this->amount      = $payable->getPaymentAmount();
+        $this->currency    = $payable->getPaymentCurrency();
+        $this->description = $payable->getPaymentDescription();
     }
 
     /**

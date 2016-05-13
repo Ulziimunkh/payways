@@ -15,9 +15,9 @@ class TransactionBuilder
     private $attributes;
 
     /**
-     * @var BillableInterface
+     * @var PayableInterface
      */
-    private $billable;
+    private $payable;
 
     /**
      * TransactionBuilder constructor.
@@ -32,12 +32,12 @@ class TransactionBuilder
     }
 
     /**
-     * @param BillableInterface $billable
+     * @param PayableInterface $payable
      * @return $this
      */
-    public function billable(BillableInterface $billable)
+    public function payable(PayableInterface $payable)
     {
-        $this->billable = $billable;
+        $this->payable = $payable;
 
         return $this;
     }
@@ -51,8 +51,8 @@ class TransactionBuilder
     {
         $transaction = Transaction::make($this->gateway, $this->attributes);
 
-        if ($this->billable) {
-            $transaction->setBillable($this->billable);
+        if ($this->payable) {
+            $transaction->setPayable($this->payable);
         }
 
         $transaction->save();

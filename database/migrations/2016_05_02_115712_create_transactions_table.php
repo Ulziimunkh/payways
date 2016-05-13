@@ -14,8 +14,8 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('billable_id')->unsigned()->nullable();
-            $table->string('billable_type')->nullable();
+            $table->integer('payable_id')->unsigned()->nullable();
+            $table->string('payable_type')->nullable();
             $table->string('gateway', 10);
             $table->decimal('amount', 10, 2);
             $table->string('currency', 3);
