@@ -9,6 +9,16 @@ use Selmonal\Payways\Exceptions\GatewayException;
 abstract class Gateway
 {
     /**
+     * Make a new gateway instance.
+     *
+     * @param $gateway
+     */
+    public static function make($gateway)
+    {
+        return app('payways.' . $gateway);
+    }
+
+    /**
      * @return string
      */
     abstract public function getName();
