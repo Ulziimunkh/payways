@@ -3,6 +3,7 @@
 namespace Selmonal\Payways;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -275,5 +276,50 @@ class Transaction extends Model
     public function getDate()
     {
         return $this->created_at;
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeApproved(Builder $builder)
+    {
+        return $builder->where('response_status', Response::STATUS_APPROVED);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeDeclined(Builder $builder)
+    {
+        return $builder->where('response_status', Response::STATUS_DECLINED);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeCancelled(Builder $builder)
+    {
+        return $builder->where('response_status', Response::STATUS_CANCELLED);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopePending(Builder $builder)
+    {
+        return $builder->where('response_status', Response::STATUS_PENDING);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeToday(Builder $builder)
+    {
+        return $builder->whereRaw('date(created_at) = date(now())');
     }
 }
