@@ -31,6 +31,9 @@ abstract class Gateway
     }
 
     /**
+     * Get supported currencies of the gateway.
+     * Example: MNT, USD
+     *
      * @return array
      */
     public function getSupportedCurrencies()
@@ -39,6 +42,8 @@ abstract class Gateway
     }
 
     /**
+     * Process the transaction.
+     *
      * @param Transaction $transaction
      * @return ResponseInterface
      * @throws ConnectionException
@@ -57,7 +62,7 @@ abstract class Gateway
     }
 
     /**
-     * Complete
+     * Complete the process of the off-site transaction.
      *
      * @param Transaction $transaction
      * @return ResponseInterface
@@ -76,21 +81,15 @@ abstract class Gateway
     }
 
     /**
+     * Make a new transaction. It returns transaction
+     * builder instance.
+     *
      * @param array $attributes
      * @return Transaction
      */
-    public function newTransaction(array $attributes = [])
+    public function transaction(array $attributes = [])
     {
         return new TransactionBuilder($this, $attributes);
-    }
-
-    /**
-     * @param $gatewayName
-     * @return GatewayInterface
-     */
-    public static function make($gatewayName)
-    {
-        return \App::make('payways.' . $gatewayName);
     }
 
     /**
