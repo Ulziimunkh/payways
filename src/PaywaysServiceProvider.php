@@ -94,7 +94,7 @@ class PaywaysServiceProvider extends ServiceProvider
             $gateway->setKeyNumber($this->app['config']->get('payways.gateways.golomt.key_number'));
             $gateway->setSubId($this->app['config']->get('payways.gateways.golomt.sub_id'));
             $gateway->setSoapUsername($this->app['config']->get('payways.gateways.golomt.soap_username'));
-            $gateway->setPassword($this->app['config']->get('payways.gateways.golomt.soap_password'));
+            $gateway->setSoapPassword($this->app['config']->get('payways.gateways.golomt.soap_password'));
 
             return $gateway;
         });
