@@ -68,7 +68,7 @@ class PaywaysServiceProvider extends ServiceProvider
      */
     private function registerKhan()
     {
-        $this->app->bind('payways.khan', function() {
+        $this->app->bind('payways.khan', function () {
 
             $gateway = new \Selmonal\Payways\Gateways\Khan\Gateway(new Client());
 

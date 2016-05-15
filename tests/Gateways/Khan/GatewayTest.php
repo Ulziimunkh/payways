@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways\Gateways\Khan;
 
-
 use Selmonal\Payways\TestCase;
 
 class GatewayTest extends TestCase
