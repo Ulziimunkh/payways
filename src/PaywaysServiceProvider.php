@@ -2,6 +2,7 @@
 
 namespace Selmonal\Payways;
 
+use Guzzle\Http\Client;
 use Illuminate\Support\ServiceProvider;
 
 class PaywaysServiceProvider extends ServiceProvider
@@ -67,7 +68,16 @@ class PaywaysServiceProvider extends ServiceProvider
      */
     private function registerKhan()
     {
-        $this->app->bind('payways.khan', 'Selmonal\Payways\Gateways\Khan\Gateway');
+        $this->app->bind('payways.khan', function() {
+
+            $gateway = new \Selmonal\Payways\Gateways\Khan\Gateway(new Client());
+
+            $gateway->setUsername($this->app['config']->get('payways.gateways.khan.username'));
+            $gateway->setPassword($this->app['config']->get('payways.gateways.khan.password'));
+            $gateway->setReturnUrl($this->app['config']->get('payways.gateways.khan.returnUrl'));
+
+            return $gateway;
+        });
     }
 
     /**

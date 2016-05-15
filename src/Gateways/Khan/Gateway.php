@@ -7,7 +7,6 @@ use Selmonal\Payways\Exceptions\ConnectionException;
 use Selmonal\Payways\Gateway as BaseGateway;
 use Selmonal\Payways\Response;
 use Selmonal\Payways\Transaction;
-use Illuminate\Config\Repository as Config;
 
 class Gateway extends BaseGateway
 {
@@ -20,20 +19,28 @@ class Gateway extends BaseGateway
     private $client;
 
     /**
-     * @var Config
+     * @var string
      */
-    private $config;
+    private $username;
+
+    /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @var string
+     */
+    private $returnUrl;
 
     /**
      * Gateway constructor.
      *
      * @param Client $client
-     * @param Config $config
      */
-    public function __construct(Client $client, Config $config)
+    public function __construct(Client $client)
     {
         $this->client = $client;
-        $this->config = $config;
     }
 
     /**
@@ -96,32 +103,6 @@ class Gateway extends BaseGateway
     }
 
     /**
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->config->get('payways.gateways.khan.username');
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->config->get('payways.gateways.khan.password');
-    }
-
-    /**
-     * @return string
-     */
-    public function getReturnUrl()
-    {
-        $uri = $this->config->get('payways.gateways.khan.returnUrl');
-
-        return url($uri);
-    }
-
-    /**
      * @return array
      */
     public function getSupportedCurrencies()
@@ -157,5 +138,53 @@ class Gateway extends BaseGateway
             ],
             'returnUrl' => $this->getReturnUrl()
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReturnUrl()
+    {
+        return $this->returnUrl;
+    }
+
+    /**
+     * @param string $returnUrl
+     */
+    public function setReturnUrl($returnUrl)
+    {
+        $this->returnUrl = $returnUrl;
     }
 }
