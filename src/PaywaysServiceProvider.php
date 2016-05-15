@@ -70,7 +70,7 @@ class PaywaysServiceProvider extends ServiceProvider
     {
         $this->app->bind('payways.khan', function () {
 
-            $gateway = new \Selmonal\Payways\Gateways\Khan\Gateway(new Client());
+            $gateway = $this->app->make('Selmonal\Payways\Gateways\Khan\Gateway');
 
             $gateway->setUsername($this->app['config']->get('payways.gateways.khan.username'));
             $gateway->setPassword($this->app['config']->get('payways.gateways.khan.password'));
@@ -87,6 +87,16 @@ class PaywaysServiceProvider extends ServiceProvider
      */
     private function registerGolomt()
     {
-        $this->app->bind('payways.golomt', 'Selmonal\Payways\Gateways\Golomt\Gateway');
+        $this->app->bind('payways.golomt', function () {
+
+            $gateway = $this->app->make('Selmonal\Payways\Gateways\Golomt\Gateway');
+
+            $gateway->setKeyNumber($this->app['config']->get('payways.gateways.golomt.key_number'));
+            $gateway->setSubId($this->app['config']->get('payways.gateways.golomt.sub_id'));
+            $gateway->setSoapUsername($this->app['config']->get('payways.gateways.golomt.soap_username'));
+            $gateway->setPassword($this->app['config']->get('payways.gateways.golomt.soap_password'));
+
+            return $gateway;
+        });
     }
 }

@@ -8,29 +8,41 @@ use Selmonal\Payways\Exceptions\ConnectionException;
 use Selmonal\Payways\Gateway as BaseGateway;
 use Selmonal\Payways\Response;
 use Selmonal\Payways\Transaction;
-use Illuminate\Config\Repository as Config;
 
 class Gateway extends BaseGateway
 {
-    /**
-     * @var Config
-     */
-    private $config;
-
     /**
      * @var Request
      */
     private $request;
 
     /**
+     * @var string
+     */
+    private $keyNumber;
+
+    /**
+     * @var string
+     */
+    private $subId;
+
+    /**
+     * @var string
+     */
+    private $soapUsername;
+
+    /**
+     * @var string
+     */
+    private $soapPassword;
+
+    /**
      * Gateway constructor.
      *
-     * @param Config $config
      * @param Request $request
      */
-    public function __construct(Config $config, Request $request)
+    public function __construct(Request $request)
     {
-        $this->config = $config;
         $this->request = $request;
     }
 
@@ -102,17 +114,6 @@ class Gateway extends BaseGateway
     }
 
     /**
-     * Get the key number for the merchant that taken from
-     * the Golomt Bank
-     *
-     * @return string
-     */
-    public function getKeyNumber()
-    {
-        return $this->config->get('payways.gateways.golomt.key_number');
-    }
-
-    /**
      * @return array
      */
     public function getSupportedCurrencies()
@@ -121,24 +122,67 @@ class Gateway extends BaseGateway
     }
 
     /**
-     * Get the key number for the merchant that taken from
-     * the Golomt Bank
-     *
+     * @return string
+     */
+    public function getKeyNumber()
+    {
+        return $this->keyNumber;
+    }
+
+    /**
+     * @param string $keyNumber
+     */
+    public function setKeyNumber($keyNumber)
+    {
+        $this->keyNumber = $keyNumber;
+    }
+
+    /**
      * @return string
      */
     public function getSubId()
     {
-        return $this->config->get('payways.gateways.golomt.sub_id');
+        return $this->subId;
     }
 
+    /**
+     * @param string $subId
+     */
+    public function setSubId($subId)
+    {
+        $this->subId = $subId;
+    }
+
+    /**
+     * @return string
+     */
     public function getSoapUsername()
     {
-        return $this->config->get('payways.gateways.golomt.soap_username');
+        return $this->soapUsername;
     }
 
+    /**
+     * @param string $soapUsername
+     */
+    public function setSoapUsername($soapUsername)
+    {
+        $this->soapUsername = $soapUsername;
+    }
+
+    /**
+     * @return string
+     */
     public function getSoapPassword()
     {
-        return $this->config->get('payways.gateways.golomt.soap_password');
+        return $this->soapPassword;
+    }
+
+    /**
+     * @param string $soapPassword
+     */
+    public function setSoapPassword($soapPassword)
+    {
+        $this->soapPassword = $soapPassword;
     }
 
     /**
