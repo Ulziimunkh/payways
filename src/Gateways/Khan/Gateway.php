@@ -128,13 +128,13 @@ class Gateway extends BaseGateway
     private function getProcessParameters(Transaction $transaction)
     {
         return [
-            'userName' => $this->getUsername(),
-            'password' => $this->getPassword(),
-            'amount' => $transaction->amount,
+            'userName'    => $this->getUsername(),
+            'password'    => $this->getPassword(),
+            'amount'      => $transaction->amount * 100,
             'description' => $transaction->description,
             'orderNumber' => $transaction->getKey(),
-            'currency' => $transaction->getCurrency()->getNumeric(),
-            'jsonParams' => [
+            'currency'    => $transaction->getCurrency()->getNumeric(),
+            'jsonParams'  => [
                 'orderNumber' => $transaction->getKey()
             ],
             'returnUrl' => $this->getReturnUrl()
