@@ -9,11 +9,11 @@
         }
     ],
     "require": {
-        "illuminate/Database": "5.1.*",
-        "illuminate/http": "5.1.*",
-        "illuminate/config": "5.1.*",
+        "illuminate/Database": "~5.0",
+        "illuminate/http": "~5.0",
+        "illuminate/config": "~5.0",
         "guzzle/guzzle": "^3.9",
-        "illuminate/routing": "5.1.*",
+        "illuminate/routing": "~5.0",
         "fergusean/nusoap": "^0.9.5"
     },
     "require-dev": {
