@@ -129,7 +129,6 @@ class Gateway extends BaseGateway
             'jsonParams'  => [
                 'orderNumber' => $transaction->getKey()
             ],
-            'language' => $this->language,
             'returnUrl' => $this->getReturnUrl()
         ];
     }

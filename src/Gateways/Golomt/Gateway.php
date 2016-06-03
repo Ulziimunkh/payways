@@ -179,22 +179,6 @@ class Gateway extends BaseGateway
     }
 
     /**
-     * @param string|null $language
-     * @return int
-     */
-    public function getLanguageIndex($language = null)
-    {
-        $language = $language?: $this->language;
-
-        switch ($language) {
-            case 'mn' : return 0; break;
-            case 'en' : return 1; break;
-        }
-        
-        throw new UnsupportedLanguageException($this);
-    }
-
-    /**
      * Make a new nusoap_client instance.
      *
      * @return nusoap_client

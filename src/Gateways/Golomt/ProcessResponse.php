@@ -58,7 +58,7 @@ class ProcessResponse extends Response implements RedirectResponseInterface
             'key_number'   => $this->getGateway()->getKeyNumber(),
             'trans_number' => $this->getTransaction()->getKey(),
             'trans_amount' => $this->getTransaction()->getAmount(),
-            'lang_ind'     => $this->getGateway()->getLanguageIndex(),
+            'lang_ind'     => 0,
             'subID'        => $this->getGateway()->getSubId()
         ];
     }

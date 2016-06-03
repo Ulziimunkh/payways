@@ -14,13 +14,6 @@ abstract class Gateway
     protected $currencies = [];
 
     /**
-     * Худалдан авагчид харагдах интерфэйсийн хэл.
-     *
-     * @var string
-     */
-    protected $language = 'mn';
-
-    /**
      * Make a new gateway instance.
      *
      * @param $gateway
@@ -73,19 +66,6 @@ abstract class Gateway
         $this->currencies = array_map(function($currency) {
             return strtolower($currency);
         }, $currencies);
-    }
-
-    /**
-     * Худалдан авагчид харагдах интерфэйсийн хэл тохируулах.
-     *
-     * @param $language
-     * @return $this
-     */
-    public function language($language)
-    {
-        $this->language = strtolower($language);
-
-        return $this;
     }
 
     /**
