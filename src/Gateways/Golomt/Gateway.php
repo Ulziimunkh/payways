@@ -5,6 +5,7 @@ namespace Selmonal\Payways\Gateways\Golomt;
 use Illuminate\Http\Request;
 use RuntimeException;
 use Selmonal\Payways\Exceptions\ConnectionException;
+use Selmonal\Payways\Exceptions\UnsupportedLanguageException;
 use Selmonal\Payways\Gateway as BaseGateway;
 use Selmonal\Payways\Response;
 use Selmonal\Payways\Transaction;
@@ -114,14 +115,6 @@ class Gateway extends BaseGateway
     }
 
     /**
-     * @return array
-     */
-    public function getSupportedCurrencies()
-    {
-        return ['MNT'];
-    }
-
-    /**
      * @return string
      */
     public function getKeyNumber()
@@ -183,6 +176,22 @@ class Gateway extends BaseGateway
     public function setSoapPassword($soapPassword)
     {
         $this->soapPassword = $soapPassword;
+    }
+
+    /**
+     * @param string|null $language
+     * @return int
+     */
+    public function getLanguageIndex($language = null)
+    {
+        $language = $language?: $this->getLanguage();
+
+        switch ($language) {
+            case 'mn' : return 0; break;
+            case 'en' : return 1; break;
+        }
+        
+        throw new UnsupportedLanguageException($this);
     }
 
     /**

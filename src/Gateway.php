@@ -9,6 +9,18 @@ use Selmonal\Payways\Exceptions\GatewayException;
 abstract class Gateway
 {
     /**
+     * @var array
+     */
+    protected $currencies = [];
+
+    /**
+     * Худалдан авагчид харагдах интерфэйсийн хэл.
+     *
+     * @var string
+     */
+    protected $language = 'mn';
+
+    /**
      * Make a new gateway instance.
      *
      * @param $gateway
@@ -37,7 +49,7 @@ abstract class Gateway
      */
     public function sendCompleteProcess(Transaction $transaction)
     {
-        throw new GatewayException($this, 'Gateway does not support completeProcess');
+        throw new GatewayException($this, 'The gateway does not support completeProcess');
     }
 
     /**
@@ -48,14 +60,39 @@ abstract class Gateway
      */
     public function getSupportedCurrencies()
     {
-        return [];
+        return $this->currencies;
+    }
+
+    /**
+     * Тухайн банкаар хийж болох вальютын төрөлүүд.
+     *
+     * @param array $currencies
+     */
+    public function setSupportedCurrencies($currencies = [])
+    {
+        $this->currencies = array_map(function($currency) {
+            return strtolower($currency);
+        }, $currencies);
+    }
+
+    /**
+     * Худалдан авагчид харагдах интерфэйсийн хэл тохируулах.
+     *
+     * @param $language
+     * @return $this
+     */
+    public function language($language)
+    {
+        $this->language = strtolower($language);
+
+        return $this;
     }
 
     /**
      * Process the transaction.
      *
      * @param Transaction $transaction
-     * @return ResponseInterface
+     * @return Response
      * @throws ConnectionException
      */
     public function process(Transaction $transaction)
@@ -75,8 +112,7 @@ abstract class Gateway
      * Complete the process of the off-site transaction.
      *
      * @param Transaction $transaction
-     * @return ResponseInterface
-     * @throws AlreadyCompleteException
+     * @return Response
      * @throws ConnectionException
      */
     public function completeProcess(Transaction $transaction)
@@ -104,11 +140,12 @@ abstract class Gateway
 
     /**
      * @param Transaction $transaction
-     * @throws \GatewayException
+     * @throws AlreadyCompletedTransactionException
+     * @throws GatewayException
      */
     private function beforeSend(Transaction $transaction)
     {
-        if (! in_array($transaction->getCurrency()->getCode(), $this->getSupportedCurrencies())) {
+        if (! in_array(strtolower($transaction->getCurrency()->getCode()), $this->getSupportedCurrencies())) {
             throw new GatewayException($this, 'Unsupported currency exception');
         }
 

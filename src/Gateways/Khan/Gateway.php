@@ -104,14 +104,6 @@ class Gateway extends BaseGateway
     }
 
     /**
-     * @return array
-     */
-    public function getSupportedCurrencies()
-    {
-        return ['MNT'];
-    }
-
-    /**
      * @param $url
      * @param $parameters
      * @return \Guzzle\Http\Message\Response
@@ -137,6 +129,7 @@ class Gateway extends BaseGateway
             'jsonParams'  => [
                 'orderNumber' => $transaction->getKey()
             ],
+            'language' => $this->getLanguage(),
             'returnUrl' => $this->getReturnUrl()
         ];
     }
