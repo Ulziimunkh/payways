@@ -184,7 +184,7 @@ class Gateway extends BaseGateway
      */
     public function getLanguageIndex($language = null)
     {
-        $language = $language?: $this->getLanguage();
+        $language = $language?: $this->language;
 
         switch ($language) {
             case 'mn' : return 0; break;

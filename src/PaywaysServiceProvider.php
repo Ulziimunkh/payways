@@ -99,7 +99,7 @@ class PaywaysServiceProvider extends ServiceProvider
             $gateway->setSoapUsername($this->app['config']->get('payways.gateways.golomt.soap_username'));
             $gateway->setSoapPassword($this->app['config']->get('payways.gateways.golomt.soap_password'));
             $gateway->setSupportedCurrencies(
-                explode(',', $this->app['config']->get('payways.gateways.golgomt.currency'))
+                explode(',', $this->app['config']->get('payways.gateways.golomt.currency'))
             );
 
             return $gateway;
