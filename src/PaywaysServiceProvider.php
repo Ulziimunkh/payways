@@ -75,7 +75,9 @@ class PaywaysServiceProvider extends ServiceProvider
             $gateway->setUsername($this->app['config']->get('payways.gateways.khan.username'));
             $gateway->setPassword($this->app['config']->get('payways.gateways.khan.password'));
             $gateway->setReturnUrl($this->app['config']->get('payways.gateways.khan.returnUrl'));
-            $gateway->setSupportedCurrencies($this->app['config']->get('payways.gateways.khan.currency'));
+            $gateway->setSupportedCurrencies(
+                explode(',', $this->app['config']->get('payways.gateways.khan.currency'))
+            );
 
             return $gateway;
         });
@@ -96,7 +98,9 @@ class PaywaysServiceProvider extends ServiceProvider
             $gateway->setSubId($this->app['config']->get('payways.gateways.golomt.sub_id'));
             $gateway->setSoapUsername($this->app['config']->get('payways.gateways.golomt.soap_username'));
             $gateway->setSoapPassword($this->app['config']->get('payways.gateways.golomt.soap_password'));
-            $gateway->setSupportedCurrencies($this->app['config']->get('payways.gateways.golgomt.currency'));
+            $gateway->setSupportedCurrencies(
+                explode(',', $this->app['config']->get('payways.gateways.golgomt.currency'))
+            );
 
             return $gateway;
         });

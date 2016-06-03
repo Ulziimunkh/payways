@@ -10,7 +10,7 @@ return [
             'username' => env('KHAN_USERNAME'),
             'password' => env('KHAN_PASSWORD'),
             'returnUrl' => 'payways/khan',
-            'currency' => env('KHAN_CURRENCY', ['mnt']),
+            'currency' => env('KHAN_CURRENCY', 'mnt'),
         ],
 
         'golomt' => [
@@ -18,7 +18,7 @@ return [
             'sub_id' => env('GOLOMT_SUB_ID', 1),
             'soap_username' => env('GOLOMT_SOAP_USERNAME'),
             'soap_password' => env('GOLOMT_SOAP_PASSWORD'),
-            'currency'  => env('GOLOMT_CURRENCY', ['mnt'])
+            'currency'  => env('GOLOMT_CURRENCY', 'mnt')
         ]
 
     ]
