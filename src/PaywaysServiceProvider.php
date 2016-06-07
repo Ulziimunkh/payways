@@ -58,7 +58,15 @@ class PaywaysServiceProvider extends ServiceProvider
      */
     private function registerLog()
     {
-        $this->app->bind('payways.log', 'Selmonal\Payways\Gateways\Log\Gateway');
+        $this->app->bind('payways.log', function () {
+
+            $gateway = $this->app->make('Selmonal\Payways\Gateways\Log\Gateway');
+
+            $gateway->setSupportedCurrencies(['mnt', 'usd']);
+
+            return $gateway;
+
+        });
     }
 
     /**
