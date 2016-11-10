@@ -46,7 +46,7 @@ $driverName = 'khan';
 
 $response = Payways::with($driverName) // Гүйлгээ хийх driver: khan, golomt, log
 	->transaction() // Шинэ гүйлгээ үүсгэж байна.
-	->payable($order) // Юуны төлбөр төлөлт энэ гүйлгээгээр хийх гэж байгаагаа тохируулна
+	->payable($order) // Юуны төлбөр төлөлт энэ гүйлгээгээр хийх гэж байгаагаа тохируулна. Selmonal\Payways\PayableInterface ийг хэрэгжүүлсэн Eloquent class дамжуулна.
 	->create() // Гүйлгээг өгөгдлийн санд хадгалж байна.
 	->proccess(); // Үүссэн энэ гүйлгээг хийх үйл ажиллагааг эхлүүлнэ.
 
