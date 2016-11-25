@@ -11,7 +11,7 @@ use Selmonal\Payways\Transaction;
 class Gateway extends BaseGateway
 {
     const REGISTER_URL = 'https://epp.khanbank.com/payment/rest/register.do';
-    const VERIFY_URL   = 'https://epp.khanbank.com/payment/rest/getOrderStatus.do';
+    const VERIFY_URL = 'https://epp.khanbank.com/payment/rest/getOrderStatus.do';
 
     /**
      * @var Client
@@ -53,6 +53,7 @@ class Gateway extends BaseGateway
 
     /**
      * @param Transaction $transaction
+     *
      * @return Response
      */
     public function sendProcess(Transaction $transaction)
@@ -61,7 +62,7 @@ class Gateway extends BaseGateway
 
         $response = $this->send(static::REGISTER_URL, $parameters);
 
-        if (! $response->isSuccessful()) {
+        if (!$response->isSuccessful()) {
             throw new ConnectionException($this, (string) $response->getBody());
         }
 
@@ -76,21 +77,23 @@ class Gateway extends BaseGateway
 
     /**
      * @param Transaction $transaction
-     * @return Response
+     *
      * @throws ConnectionException
+     *
+     * @return Response
      */
     public function sendCompleteProcess(Transaction $transaction)
     {
         $parameters = [
             'userName' => $this->getUsername(),
             'password' => $this->getPassword(),
-            'orderId'  => $transaction->getReference()
+            'orderId'  => $transaction->getReference(),
         ];
 
         $response = $this->send(static::VERIFY_URL, $parameters);
 
 
-        if (! $response->isSuccessful()) {
+        if (!$response->isSuccessful()) {
             throw new ConnectionException($this, (string) $response->getBody());
         }
 
@@ -106,15 +109,17 @@ class Gateway extends BaseGateway
     /**
      * @param $url
      * @param $parameters
+     *
      * @return \Guzzle\Http\Message\Response
      */
     private function send($url, $parameters)
     {
-        return $this->client->get($url . '?' . http_build_query($parameters))->send();
+        return $this->client->get($url.'?'.http_build_query($parameters))->send();
     }
 
     /**
      * @param Transaction $transaction
+     *
      * @return array
      */
     private function getProcessParameters(Transaction $transaction)
@@ -127,9 +132,9 @@ class Gateway extends BaseGateway
             'orderNumber' => $transaction->getKey(),
             'currency'    => $transaction->getCurrency()->getNumeric(),
             'jsonParams'  => [
-                'orderNumber' => $transaction->getKey()
+                'orderNumber' => $transaction->getKey(),
             ],
-            'returnUrl' => $this->getReturnUrl()
+            'returnUrl' => $this->getReturnUrl(),
         ];
     }
 

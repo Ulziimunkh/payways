@@ -18,10 +18,11 @@ class GatewayManager extends Manager
 
     /**
      * @param string $driver
+     *
      * @return Gateway
      */
     protected function createDriver($driver)
     {
-        return $this->app->make('payways.'. $driver);
+        return $this->app->make('payways.'.$driver);
     }
 }

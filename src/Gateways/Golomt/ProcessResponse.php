@@ -8,7 +8,7 @@ use Selmonal\Payways\Response;
 class ProcessResponse extends Response implements RedirectResponseInterface
 {
     /**
-     * @return boolean
+     * @return bool
      */
     public function isSuccessful()
     {
@@ -59,7 +59,7 @@ class ProcessResponse extends Response implements RedirectResponseInterface
             'trans_number' => $this->getTransaction()->getKey(),
             'trans_amount' => $this->getTransaction()->getAmount(),
             'lang_ind'     => 0,
-            'subID'        => $this->getGateway()->getSubId()
+            'subID'        => $this->getGateway()->getSubId(),
         ];
     }
 }
