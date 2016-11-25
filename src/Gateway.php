@@ -20,7 +20,7 @@ abstract class Gateway
      */
     public static function make($gateway)
     {
-        return app('payways.' . $gateway);
+        return app('payways.'.$gateway);
     }
 
     /**
@@ -30,15 +30,19 @@ abstract class Gateway
 
     /**
      * @param Transaction $transaction
-     * @return Response
+     *
      * @throws ConnectionException
+     *
+     * @return Response
      */
     abstract public function sendProcess(Transaction $transaction);
 
     /**
      * @param Transaction $transaction
-     * @return Response
+     *
      * @throws ConnectionException
+     *
+     * @return Response
      */
     public function sendCompleteProcess(Transaction $transaction)
     {
@@ -47,7 +51,7 @@ abstract class Gateway
 
     /**
      * Get supported currencies of the gateway.
-     * Example: MNT, USD
+     * Example: MNT, USD.
      *
      * @return array
      */
@@ -63,7 +67,7 @@ abstract class Gateway
      */
     public function setSupportedCurrencies($currencies = [])
     {
-        $this->currencies = array_map(function($currency) {
+        $this->currencies = array_map(function ($currency) {
             return strtolower($currency);
         }, $currencies);
     }
@@ -72,8 +76,10 @@ abstract class Gateway
      * Process the transaction.
      *
      * @param Transaction $transaction
-     * @return Response
+     *
      * @throws ConnectionException
+     *
+     * @return Response
      */
     public function process(Transaction $transaction)
     {
@@ -92,8 +98,10 @@ abstract class Gateway
      * Complete the process of the off-site transaction.
      *
      * @param Transaction $transaction
-     * @return Response
+     *
      * @throws ConnectionException
+     *
+     * @return Response
      */
     public function completeProcess(Transaction $transaction)
     {
@@ -111,6 +119,7 @@ abstract class Gateway
      * builder instance.
      *
      * @param array $attributes
+     *
      * @return Transaction
      */
     public function transaction(array $attributes = [])
@@ -120,16 +129,17 @@ abstract class Gateway
 
     /**
      * @param Transaction $transaction
+     *
      * @throws AlreadyCompletedTransactionException
      * @throws GatewayException
      */
     private function beforeSend(Transaction $transaction)
     {
-        if (! in_array(strtolower($transaction->getCurrency()->getCode()), $this->getSupportedCurrencies())) {
+        if (!in_array(strtolower($transaction->getCurrency()->getCode()), $this->getSupportedCurrencies())) {
             throw new GatewayException($this, 'Unsupported currency exception');
         }
 
-        if (! $transaction->isPending()) {
+        if (!$transaction->isPending()) {
             throw new AlreadyCompletedTransactionException($transaction, $this, 'Transaction is not pending.');
         }
     }

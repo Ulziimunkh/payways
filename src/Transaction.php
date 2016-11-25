@@ -24,14 +24,14 @@ class Transaction extends Model
      */
     protected $attributes = [
         'response_status' => Response::STATUS_PENDING,
-        'currency'        => 'MNT'
+        'currency'        => 'MNT',
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'response_data' => 'json'
+        'response_data' => 'json',
     ];
 
     /**
@@ -40,7 +40,7 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-        'amount', 'currency', 'description'
+        'amount', 'currency', 'description',
     ];
 
     /**
@@ -48,6 +48,7 @@ class Transaction extends Model
      *
      * @param Gateway $gateway
      * @param $attributes
+     *
      * @return static
      */
     public static function make(Gateway $gateway, $attributes)
@@ -69,13 +70,11 @@ class Transaction extends Model
         parent::boot();
 
         static::saving(function (Transaction $transaction) {
-
             if ($transaction->isDirty('response_status')) {
                 if ($transaction->attributes['response_status'] == Response::STATUS_APPROVED) {
                     $transaction->paid_at = Carbon::now();
                 }
             }
-
         });
     }
 
@@ -84,11 +83,12 @@ class Transaction extends Model
      *
      * @param $reference
      * @param $gateway
+     *
      * @return Transaction
      */
     public static function findByReference($reference, $gateway)
     {
-        return Transaction::whereReference($reference)->whereGateway($gateway)->first();
+        return self::whereReference($reference)->whereGateway($gateway)->first();
     }
 
     /**
@@ -163,8 +163,8 @@ class Transaction extends Model
     {
         $this->payable()->associate($payable);
 
-        $this->amount      = $payable->getPaymentAmount();
-        $this->currency    = $payable->getPaymentCurrency();
+        $this->amount = $payable->getPaymentAmount();
+        $this->currency = $payable->getPaymentCurrency();
         $this->description = $payable->getPaymentDescription();
     }
 
@@ -280,6 +280,7 @@ class Transaction extends Model
 
     /**
      * @param Builder $builder
+     *
      * @return Builder
      */
     public function scopeApproved(Builder $builder)
@@ -289,6 +290,7 @@ class Transaction extends Model
 
     /**
      * @param Builder $builder
+     *
      * @return Builder
      */
     public function scopeDeclined(Builder $builder)
@@ -298,6 +300,7 @@ class Transaction extends Model
 
     /**
      * @param Builder $builder
+     *
      * @return Builder
      */
     public function scopeCancelled(Builder $builder)
@@ -307,6 +310,7 @@ class Transaction extends Model
 
     /**
      * @param Builder $builder
+     *
      * @return Builder
      */
     public function scopePending(Builder $builder)
@@ -316,6 +320,7 @@ class Transaction extends Model
 
     /**
      * @param Builder $builder
+     *
      * @return Builder
      */
     public function scopeToday(Builder $builder)

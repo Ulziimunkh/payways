@@ -10,7 +10,7 @@ interface PayableInterface
     public function getPaymentAmount();
 
     /**
-     * @return integer
+     * @return int
      */
     public function getPaymentCurrency();
 
@@ -20,7 +20,7 @@ interface PayableInterface
     public function getPaymentDescription();
 
     /**
-     * @return integer
+     * @return int
      */
     public function getKey();
 }

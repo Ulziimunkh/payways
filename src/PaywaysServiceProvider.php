@@ -2,7 +2,6 @@
 
 namespace Selmonal\Payways;
 
-use Guzzle\Http\Client;
 use Illuminate\Support\ServiceProvider;
 
 class PaywaysServiceProvider extends ServiceProvider
@@ -42,7 +41,7 @@ class PaywaysServiceProvider extends ServiceProvider
     private function registerPublishes()
     {
         $this->publishes([
-            __DIR__ . '/../database/migrations/' => database_path('migrations')
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
         ], 'migrations');
 
         // Publish config
@@ -52,20 +51,18 @@ class PaywaysServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register log gateway
+     * Register log gateway.
      *
      * @return void
      */
     private function registerLog()
     {
         $this->app->bind('payways.log', function () {
-
             $gateway = $this->app->make('Selmonal\Payways\Gateways\Log\Gateway');
 
             $gateway->setSupportedCurrencies(['mnt', 'usd']);
 
             return $gateway;
-
         });
     }
 
@@ -77,7 +74,6 @@ class PaywaysServiceProvider extends ServiceProvider
     private function registerKhan()
     {
         $this->app->bind('payways.khan', function () {
-
             $gateway = $this->app->make('Selmonal\Payways\Gateways\Khan\Gateway');
 
             $gateway->setUsername($this->app['config']->get('payways.gateways.khan.username'));
@@ -99,7 +95,6 @@ class PaywaysServiceProvider extends ServiceProvider
     private function registerGolomt()
     {
         $this->app->bind('payways.golomt', function () {
-
             $gateway = $this->app->make('Selmonal\Payways\Gateways\Golomt\Gateway');
 
             $gateway->setKeyNumber($this->app['config']->get('payways.gateways.golomt.key_number'));

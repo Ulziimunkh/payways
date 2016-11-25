@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 abstract class Response
 {
-    const STATUS_PENDING  = 'pending';
-    const STATUS_APPROVED  = 'approved';
-    const STATUS_DECLINED  = 'declined';
+    const STATUS_PENDING = 'pending';
+    const STATUS_APPROVED = 'approved';
+    const STATUS_DECLINED = 'declined';
     const STATUS_CANCELLED = 'cancelled';
 
     /**
@@ -31,9 +31,9 @@ abstract class Response
     /**
      * AbstractResponse constructor.
      *
-     * @param Gateway $gateway
+     * @param Gateway     $gateway
      * @param Transaction $transaction
-     * @param array $data
+     * @param array       $data
      */
     public function __construct(Gateway $gateway, Transaction $transaction, array $data = [])
     {
@@ -59,12 +59,12 @@ abstract class Response
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     abstract public function isSuccessful();
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isRedirect()
     {
@@ -81,7 +81,6 @@ abstract class Response
      */
     public function getCode()
     {
-        return null;
     }
 
     /**
@@ -89,7 +88,6 @@ abstract class Response
      */
     public function getMessage()
     {
-        return null;
     }
 
     /**
@@ -107,11 +105,10 @@ abstract class Response
      */
     public function getTransactionReference()
     {
-        return null;
     }
 
     /**
-     * Automatically perform any required redirect
+     * Automatically perform any required redirect.
      *
      * This method is meant to be a helper for simple scenarios. If you want to customize the
      * redirection page, just call the getRedirectUrl() and getRedirectData() methods directly.
@@ -127,12 +124,13 @@ abstract class Response
     }
 
     /**
-     * @return HttpRedirectResponse
      * @throws RuntimeException
+     *
+     * @return HttpRedirectResponse
      */
     public function getRedirectResponse()
     {
-        if (! $this instanceof RedirectResponseInterface || ! $this->isRedirect()) {
+        if (!$this instanceof RedirectResponseInterface || !$this->isRedirect()) {
             throw new RuntimeException('This response does not support redirection.');
         }
 
@@ -170,6 +168,7 @@ abstract class Response
                 htmlentities($this->getRedirectUrl(), ENT_QUOTES, 'UTF-8', false),
                 $hiddenFields
             );
+
             return HttpResponse::create($output);
         }
         throw new RuntimeException('Invalid redirect method "'.$this->getRedirectMethod().'".');

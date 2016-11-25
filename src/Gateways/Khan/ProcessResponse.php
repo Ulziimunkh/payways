@@ -12,7 +12,7 @@ class ProcessResponse extends BaseResponse implements RedirectResponseInterface
      */
     public function getStatus()
     {
-        if (! $this->getTransactionReference()) {
+        if (!$this->getTransactionReference()) {
             return BaseResponse::STATUS_DECLINED;
         }
 
@@ -24,7 +24,6 @@ class ProcessResponse extends BaseResponse implements RedirectResponseInterface
      */
     public function getCode()
     {
-        return null;
     }
 
     /**
@@ -32,11 +31,10 @@ class ProcessResponse extends BaseResponse implements RedirectResponseInterface
      */
     public function getMessage()
     {
-        return null;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isSuccessful()
     {
@@ -44,11 +42,11 @@ class ProcessResponse extends BaseResponse implements RedirectResponseInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isRedirect()
     {
-        return ! is_null($this->getTransactionReference());
+        return !is_null($this->getTransactionReference());
     }
 
     /**

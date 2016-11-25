@@ -23,7 +23,7 @@ class TransactionBuilder
      * TransactionBuilder constructor.
      *
      * @param Gateway $gateway
-     * @param array $attributes
+     * @param array   $attributes
      */
     public function __construct(Gateway $gateway, array $attributes = [])
     {
@@ -33,6 +33,7 @@ class TransactionBuilder
 
     /**
      * @param PayableInterface $payable
+     *
      * @return $this
      */
     public function payable(PayableInterface $payable)

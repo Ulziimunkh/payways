@@ -10,17 +10,17 @@ class Currency
     private $code;
 
     /**
-     * @var integer
+     * @var int
      */
     private $numeric;
 
     /**
-     * @var integer
+     * @var int
      */
     private $decimals;
 
     /**
-     * Create a new Currency object
+     * Create a new Currency object.
      *
      * @param $code
      * @param $numeric
@@ -34,7 +34,7 @@ class Currency
     }
 
     /**
-     * Get the three letter code for the currency
+     * Get the three letter code for the currency.
      *
      * @return string
      */
@@ -44,7 +44,7 @@ class Currency
     }
 
     /**
-     * Get the numeric code for this currency
+     * Get the numeric code for this currency.
      *
      * @return string
      */
@@ -54,7 +54,7 @@ class Currency
     }
 
     /**
-     * Get the number of decimal places for this currency
+     * Get the number of decimal places for this currency.
      *
      * @return int
      */
@@ -64,10 +64,11 @@ class Currency
     }
 
     /**
-     * Find a specific currency
+     * Find a specific currency.
      *
-     * @param  string $code The three letter currency code
-     * @return mixed  A Currency object, or null if no currency was found
+     * @param string $code The three letter currency code
+     *
+     * @return mixed A Currency object, or null if no currency was found
      */
     public static function find($code)
     {
@@ -80,15 +81,15 @@ class Currency
     }
 
     /**
-     * Get an array of all supported currencies
+     * Get an array of all supported currencies.
      *
      * @return array
      */
     public static function all()
     {
-        return array(
+        return [
             'USD' => ['numeric' => '840', 'decimals' => 2],
             'MNT' => ['numeric' => '496', 'decimals' => 2],
-        );
+        ];
     }
 }

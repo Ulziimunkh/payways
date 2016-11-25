@@ -25,12 +25,12 @@ class CompleteProcessResponse extends Response
     /**
      * CompleteProcessResponse constructor.
      *
-     * @param Gateway $gateway
+     * @param Gateway     $gateway
      * @param Transaction $transaction
-     * @param string $status
-     * @param string $code
-     * @param string $message
-     * @param array $data
+     * @param string      $status
+     * @param string      $code
+     * @param string      $message
+     * @param array       $data
      */
     public function __construct(Gateway $gateway, Transaction $transaction, $status, $code = '', $message = '', array $data = [])
     {
@@ -43,7 +43,7 @@ class CompleteProcessResponse extends Response
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isSuccessful()
     {

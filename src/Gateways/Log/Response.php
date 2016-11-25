@@ -40,6 +40,5 @@ class Response extends BaseResponse
      */
     public function getData()
     {
-        return null;
     }
 }

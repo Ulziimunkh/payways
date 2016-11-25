@@ -33,6 +33,7 @@ class Gateway extends BaseGateway
 
     /**
      * @param Transaction $transaction
+     *
      * @return Response
      */
     public function sendProcess(Transaction $transaction)
@@ -44,6 +45,7 @@ class Gateway extends BaseGateway
 
     /**
      * @param Transaction $transaction
+     *
      * @return Response
      */
     public function sendCompleteProcess(Transaction $transaction)

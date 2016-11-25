@@ -5,7 +5,6 @@ namespace Selmonal\Payways\Gateways\Golomt;
 use Illuminate\Http\Request;
 use RuntimeException;
 use Selmonal\Payways\Exceptions\ConnectionException;
-use Selmonal\Payways\Exceptions\UnsupportedLanguageException;
 use Selmonal\Payways\Gateway as BaseGateway;
 use Selmonal\Payways\Response;
 use Selmonal\Payways\Transaction;
@@ -57,6 +56,7 @@ class Gateway extends BaseGateway
 
     /**
      * @param Transaction $transaction
+     *
      * @return Response
      */
     public function sendProcess(Transaction $transaction)
@@ -66,8 +66,10 @@ class Gateway extends BaseGateway
 
     /**
      * @param Transaction $transaction
-     * @return CompleteProcessResponse
+     *
      * @throws ConnectionException
+     *
+     * @return CompleteProcessResponse
      */
     public function sendCompleteProcess(Transaction $transaction)
     {
@@ -181,14 +183,15 @@ class Gateway extends BaseGateway
     /**
      * Make a new nusoap_client instance.
      *
-     * @return nusoap_client
      * @throws SoupClientErrorException
+     *
+     * @return nusoap_client
      */
     private function makeSoapClient()
     {
-        $client = new \nusoap_client("https://m.egolomt.mn:7073/persistence.asmx?WSDL", 'wsdl');
+        $client = new \nusoap_client('https://m.egolomt.mn:7073/persistence.asmx?WSDL', 'wsdl');
 
-        if (! $client->getError()) {
+        if (!$client->getError()) {
             return $client;
         }
 
@@ -197,6 +200,7 @@ class Gateway extends BaseGateway
 
     /**
      * @param Transaction $transaction
+     *
      * @return array
      */
     private function getSoapParameters(Transaction $transaction)
@@ -206,12 +210,13 @@ class Gateway extends BaseGateway
             'v1' => $this->getSoapPassword(),
             'v2' => $transaction->getKey(),
             'v3' => $transaction->getDate()->format('Ymd'),
-            'v4' => number_format($transaction->getAmount(), 2, '.', '')
+            'v4' => number_format($transaction->getAmount(), 2, '.', ''),
         ];
     }
 
     /**
      * @param $responseCode
+     *
      * @return string
      */
     private function getSoapMessage($responseCode)
