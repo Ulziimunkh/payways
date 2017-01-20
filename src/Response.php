@@ -24,7 +24,7 @@ abstract class Response
     private $transaction;
 
     /**
-     * @var array
+     * @var mixed
      */
     protected $data;
 
@@ -33,9 +33,9 @@ abstract class Response
      *
      * @param Gateway     $gateway
      * @param Transaction $transaction
-     * @param array       $data
+     * @param mixed       $data
      */
-    public function __construct(Gateway $gateway, Transaction $transaction, array $data = [])
+    public function __construct(Gateway $gateway, Transaction $transaction, $data = [])
     {
         $this->gateway = $gateway;
         $this->transaction = $transaction;

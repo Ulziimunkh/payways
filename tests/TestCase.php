@@ -33,6 +33,7 @@ class TestCase extends Orchestra\Testbench\TestCase
 	        'database' => ':memory:',
 	        'prefix'   => '',
 	    ]);
+	    $app['config']->set('payways.gateways.state.currency', 'mnt');
 	}
 
 	/**

@@ -21,6 +21,7 @@ class PaywaysServiceProvider extends ServiceProvider
         $this->registerLog();
         $this->registerKhan();
         $this->registerGolomt();
+        $this->registerState();
 
         $this->app->singleton('payways', function ($app) {
 
@@ -105,6 +106,27 @@ class PaywaysServiceProvider extends ServiceProvider
                 explode(',', $this->app['config']->get('payways.gateways.golomt.currency'))
             );
 
+            return $gateway;
+        });
+    }
+
+    /**
+     * Register a gateway for the State Bank.
+     *
+     * @return void
+     */
+    private function registerState()
+    {
+        $this->app->bind('payways.state', function () {
+
+            $gateway = $this->app->make('Selmonal\Payways\Gateways\State\Gateway');
+
+            $gateway->setSupportedCurrencies(
+                explode(',', $this->app['config']->get('payways.gateways.state.currency'))
+            );
+
+            $gateway->setCallbackUrl(config('payways.gateways.state.returnUrl'));
+            
             return $gateway;
         });
     }

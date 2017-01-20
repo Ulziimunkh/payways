@@ -21,6 +21,11 @@ return [
             'currency'      => env('GOLOMT_CURRENCY', 'mnt'),
         ],
 
+        'state' => [
+            'currency' => env('STATE_CURRENCY', 'mnt'),
+            'returnUrl' => 'payways/state',
+        ]
+
     ],
 
 ];

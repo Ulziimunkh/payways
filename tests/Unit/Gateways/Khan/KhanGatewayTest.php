@@ -6,7 +6,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Selmonal\Payways\Gateways\Khan\Gateway;
 
-class GatewayTest extends TestCase
+class KhanGatewayTest extends TestCase
 {
     public function setUp()
     {

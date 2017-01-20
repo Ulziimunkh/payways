@@ -13,7 +13,8 @@
         "illuminate/http": "~5.0",
         "illuminate/config": "~5.0",
         "fergusean/nusoap": "^0.9.5",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "selmonal/xml": "^0.0.1"
     },
     "require-dev": {
         "orchestra/testbench": "~3.0",
