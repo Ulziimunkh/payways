@@ -7,27 +7,27 @@ use Selmonal\Payways\Response;
 use Selmonal\Payways\Transaction;
 
 class ProcessResponseTest extends TestCase
-{	
-	private $client;
+{
+    private $client;
 
-	public function setUp()
-	{
-		parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
 
-		$this->client = new FakeHttpClient;
-		$this->gateway = new Gateway($this->client);
-	}
+        $this->client = new FakeHttpClient();
+        $this->gateway = new Gateway($this->client);
+    }
 
-	/** @test */
+    /** @test */
     public function response_with_00_status_is_successful()
     {
-    	$this->client->setStatus('00');
+        $this->client->setStatus('00');
 
-    	$response = new ProcessResponse($this->gateway, new Transaction, $this->client->send('CreateOrder'));
+        $response = new ProcessResponse($this->gateway, new Transaction(), $this->client->send('CreateOrder'));
 
-    	$this->assertFalse($response->isSuccessful());
-    	$this->assertTrue($response->isRedirect());
-    	$this->assertEquals(Response::STATUS_PENDING, $response->getStatus());
-    	$this->assertEquals('00', $response->getCode());
+        $this->assertFalse($response->isSuccessful());
+        $this->assertTrue($response->isRedirect());
+        $this->assertEquals(Response::STATUS_PENDING, $response->getStatus());
+        $this->assertEquals('00', $response->getCode());
     }
 }

@@ -6,19 +6,19 @@ use Selmonal\Xml\Xml;
 
 class FakeHttpClient implements HttpClient
 {
-	private $status;
-	private $orderId;
-	private $orderStatus;
-	private $sessionId;
-	private $lastSent;
+    private $status;
+    private $orderId;
+    private $orderStatus;
+    private $sessionId;
+    private $lastSent;
 
-	public function send($content)
-	{
-		$xml = new Xml;
-		$this->lastSent = $content;
+    public function send($content)
+    {
+        $xml = new Xml();
+        $this->lastSent = $content;
 
-		if (str_contains($content, 'CreateOrder')) {
-			$xml->loadFromString('<?xml version="1.0" encoding="UTF-8"?>
+        if (str_contains($content, 'CreateOrder')) {
+            $xml->loadFromString('<?xml version="1.0" encoding="UTF-8"?>
 			<TKKPG>
 				<Response>
 					<Operation>CreateOrder</Operation>
@@ -30,10 +30,10 @@ class FakeHttpClient implements HttpClient
 					</Order>
 				</Response>
 			</TKKPG>');
-		}
+        }
 
-		if (str_contains($content, 'GetOrderStatus')) {
-			$xml->loadFromString('<?xml version="1.0" encoding="UTF-8"?>
+        if (str_contains($content, 'GetOrderStatus')) {
+            $xml->loadFromString('<?xml version="1.0" encoding="UTF-8"?>
 			<TKKPG>
 				<Response>
 					<Operation>GetOrderStatus</Operation>
@@ -47,31 +47,31 @@ class FakeHttpClient implements HttpClient
 					</AdditionalInfo>
 				</Response>
 			</TKKPG>');
-		}
+        }
 
-		return $xml;
-	}
+        return $xml;
+    }
 
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
-	public function setOrderId($orderId)
-	{
-		$this->orderId = $orderId;
-	}
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+    }
 
-	public function setOrderStatus($orderStatus)
-	{
-		$this->orderStatus = $orderStatus;
-	}
+    public function setOrderStatus($orderStatus)
+    {
+        $this->orderStatus = $orderStatus;
+    }
 
-	public function setSessionId($sessionId)
-	{
-		$this->sessionId = $sessionId;
-	}
-	
+    public function setSessionId($sessionId)
+    {
+        $this->sessionId = $sessionId;
+    }
+
     public function lastSent()
     {
         return $this->lastSent;

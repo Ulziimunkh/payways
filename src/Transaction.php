@@ -119,12 +119,12 @@ class Transaction extends Model
 
     /**
      * Determine if the transaction is paid.
-     * 
-     * @return boolean
+     *
+     * @return bool
      */
     public function getIsPaidAttribute()
     {
-        return ! is_null($this->paid_at);
+        return !is_null($this->paid_at);
     }
 
     /**

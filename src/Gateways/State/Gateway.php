@@ -11,12 +11,12 @@ class Gateway extends AbstractGateway
      * @var HttpClient
      */
     private $client;
-    
+
     private $merchantId;
 
     /**
      * Construct Gateway.
-     * 
+     *
      * @param HttpClient $client
      */
     public function __construct(HttpClient $client)
@@ -24,12 +24,12 @@ class Gateway extends AbstractGateway
         $this->client = $client;
     }
 
-	/**
+    /**
      * @return string
      */
     public function getName()
     {
-    	return 'state';
+        return 'state';
     }
 
     /**
@@ -78,12 +78,12 @@ class Gateway extends AbstractGateway
                 <Operation>GetOrderStatus</Operation>
                 <Language>EN</Language>
                 <Order>
-                    <Merchant>".$this->merchantId."</Merchant>
-                    <OrderID>".$requestData['orderId']."</OrderID>
+                    <Merchant>".$this->merchantId.'</Merchant>
+                    <OrderID>'.$requestData['orderId'].'</OrderID>
                 </Order>
-                <SessionID>".$requestData['sessionId']."</SessionID>
+                <SessionID>'.$requestData['sessionId'].'</SessionID>
             </Request>
-        </TKKPG>");
+        </TKKPG>');
 
         return new CompleteProcessResponse($this, $transaction, $xml);
     }

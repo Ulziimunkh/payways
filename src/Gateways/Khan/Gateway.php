@@ -66,7 +66,6 @@ class Gateway extends BaseGateway
             throw new ConnectionException($this, (string) $response->getBody());
         }
 
-
         $data = $this->getData($response);
 
         if ($data['errorCode'] != '0') {
@@ -93,7 +92,6 @@ class Gateway extends BaseGateway
 
         $response = $this->send(static::VERIFY_URL, $parameters);
 
-
         if ($response->getStatusCode() !== 200) {
             throw new ConnectionException($this, (string) $response->getBody());
         }
@@ -108,7 +106,8 @@ class Gateway extends BaseGateway
     }
 
     /**
-     * @param  \GuzzleHttp\Psr7\Response $response
+     * @param \GuzzleHttp\Psr7\Response $response
+     *
      * @return array
      */
     public function getData($response)
@@ -150,7 +149,7 @@ class Gateway extends BaseGateway
 
     /**
      * Set the http client.
-     * 
+     *
      * @param Client $client.
      */
     public function setHttpClient(Client $client)
