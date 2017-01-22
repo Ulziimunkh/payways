@@ -1,5 +1,6 @@
 <?php
 
+use Selmonal\Payways\Gateways\State\CompleteProcessResponse;
 use Selmonal\Payways\Gateways\State\FakeHttpClient;
 use Selmonal\Payways\Gateways\State\Gateway;
 use Selmonal\Payways\Gateways\State\ProcessResponse;
@@ -17,6 +18,7 @@ class StateGatewayTest extends TestCase
 		parent::setUp();
 
 		$this->client = new FakeHttpClient;
+		$this->client->setStatus('00');
 
 		$this->gateway = new Gateway($this->client);
 		$this->gateway->setSupportedCurrencies(['mnt']);
@@ -46,19 +48,21 @@ class StateGatewayTest extends TestCase
 		$this->assertEquals('Test description.', $xml->get('Request.Order.Description'));
 		$this->assertEquals(496, $xml->get('Request.Order.Currency'));
 
-		$this->assertInstanceOf(ProcessResponse::class, $response);
+		$this->assertTrue($response instanceof ProcessResponse);
 		$this->assertEquals($this->client->send('CreateOrder'), $response->getData());
 	}
 
 	/** @test */
 	public function sending_correct_xml_for_get_order_status()
 	{
+		$this->client->setOrderStatus('APPROVED');
+
 		$this->transaction->reference = json_encode([
 			'orderId' => '12334123412',
 			'sessionId' => 'WQE1231O23H1UH231IU2H31O23HOI32'
 		]);
 
-		$resopnse = $this->gateway->completeProcess($this->transaction);
+		$response = $this->gateway->completeProcess($this->transaction);
 
 		$this->assertNotNull($this->client->lastSent());
 		$xml = new Xml;
@@ -67,7 +71,7 @@ class StateGatewayTest extends TestCase
 		$this->assertEquals('12334123412', $xml->get('Request.Order.OrderID'));
 		$this->assertEquals('WQE1231O23H1UH231IU2H31O23HOI32', $xml->get('Request.SessionID'));
 
-		$this->assertInstanceOf(CompleteProcessResponse::class, $response);
-		$this->assertInstanceOf($this->client->send('GetOrderStatus'), $response->getData());
+		$this->assertTrue($response instanceof CompleteProcessResponse);
+		$this->assertEquals($this->client->send('GetOrderStatus'), $response->getData());
 	}
 }

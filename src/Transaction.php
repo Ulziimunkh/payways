@@ -6,15 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property string gateway
- * @property float amount
- * @property int currency
- * @property string description
- * @property Carbon paid_at
- * @property string reference
- * @property Carbon created_at
- */
 class Transaction extends Model
 {
     /**
@@ -124,6 +115,16 @@ class Transaction extends Model
     public function completeProcess()
     {
         return $this->getGateway()->completeProcess($this);
+    }
+
+    /**
+     * Determine if the transaction is paid.
+     * 
+     * @return boolean
+     */
+    public function getIsPaidAttribute()
+    {
+        return ! is_null($this->paid_at);
     }
 
     /**

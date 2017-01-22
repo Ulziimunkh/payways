@@ -71,7 +71,7 @@ class FakeHttpClient implements HttpClient
 	{
 		$this->sessionId = $sessionId;
 	}
-
+	
     public function lastSent()
     {
         return $this->lastSent;

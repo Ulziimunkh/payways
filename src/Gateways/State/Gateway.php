@@ -11,7 +11,7 @@ class Gateway extends AbstractGateway
      * @var HttpClient
      */
     private $client;
-
+    
     private $merchantId;
 
     /**
@@ -84,6 +84,8 @@ class Gateway extends AbstractGateway
                 <SessionID>".$requestData['sessionId']."</SessionID>
             </Request>
         </TKKPG>");
+
+        return new CompleteProcessResponse($this, $transaction, $xml);
     }
 
     public function setMerchantId($merchantId)

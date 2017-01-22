@@ -14,6 +14,7 @@ class PayWithStateBankTest extends TestCase
 		$client = new FakeHttpClient;
 		$client->setStatus('00');
 		$client->setOrderId('123');
+		$client->setOrderStatus('APPROVED');
 		$client->setSessionId('456');
 		$this->app->instance(HttpClient::class, $client);
 
