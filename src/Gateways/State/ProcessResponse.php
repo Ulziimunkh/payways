@@ -6,7 +6,7 @@ use Selmonal\Payways\Response;
 
 class ProcessResponse extends BaseResponse
 {
-	/**
+    /**
      * @return bool
      */
     public function isSuccessful()
@@ -30,7 +30,7 @@ class ProcessResponse extends BaseResponse
         if ($this->isRedirect()) {
             return Response::STATUS_PENDING;
         }
-        
+
         return Response::STATUS_DECLINED;
     }
 
@@ -40,7 +40,7 @@ class ProcessResponse extends BaseResponse
     public function getTransactionReference()
     {
         return json_encode([
-            'orderId' => $this->data->get('Response.Order.OrderID'),
+            'orderId'   => $this->data->get('Response.Order.OrderID'),
             'sessionId' => $this->data->get('Response.Order.SessionID'),
         ]);
     }

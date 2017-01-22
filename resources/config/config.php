@@ -27,7 +27,7 @@ return [
             'password'  => env('STATE_PASSWORD'),
             'currency'  => env('STATE_CURRENCY', 'mnt'),
             'returnUrl' => 'payways/state',
-        ]
+        ],
 
     ],
 

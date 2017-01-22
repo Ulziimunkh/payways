@@ -37,8 +37,10 @@ class CurlHttpClient
 
     /**
      * @param $content
-     * @return mixed
+     *
      * @throws ConnectionFailedException
+     *
+     * @return mixed
      */
     public function send($content)
     {
@@ -53,12 +55,13 @@ class CurlHttpClient
 
         $xml = new Xml();
         $xml->loadFromString($ret);
-        
+
         return new Xml($xml);
     }
 
     /**
      * @param $content
+     *
      * @return resource
      */
     private function configureCurl($content)
@@ -83,7 +86,7 @@ class CurlHttpClient
 
         curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-        curl_setopt($ch, CURLOPT_USERPWD, $this->username . ":" . $this->password);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->username.':'.$this->password);
 
         return $ch;
     }
