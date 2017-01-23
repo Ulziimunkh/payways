@@ -2,6 +2,7 @@
 
 namespace Selmonal\Payways\Gateways\State;
 
+use Selmonal\Payways\Exceptions\ConnectionException;
 use Selmonal\Xml\Xml;
 
 class CurlHttpClient implements HttpClient
@@ -50,13 +51,12 @@ class CurlHttpClient implements HttpClient
         $ret = curl_exec($ch);
 
         if ($ret === false || ($code = curl_getinfo($ch, CURLINFO_HTTP_CODE)) != 200) {
-            throw new ConnectionFailedException("http request status code [{$code}] ");
+            throw new ConnectionException("http request status code [{$code}] ");
         }
 
         $xml = new Xml();
         $xml->loadFromString($ret);
-
-        return new Xml($xml);
+        return $xml;
     }
 
     /**
