@@ -1,8 +1,8 @@
 <?php
 
 use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Selmonal\Payways\Gateways\Khan\Gateway;
 
@@ -12,13 +12,13 @@ class KhanGatewayTest extends TestCase
     {
         parent::setUp();
 
-        $this->gateway = new Gateway;
+        $this->gateway = new Gateway();
     }
 
     public function setHttpResponse($code, $body)
     {
         $mock = new MockHandler([
-            new Response($code, [], $body)
+            new Response($code, [], $body),
         ]);
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);

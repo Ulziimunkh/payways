@@ -136,6 +136,7 @@ class PaywaysServiceProvider extends ServiceProvider
             $currencies = explode(',', config('payways.gateways.state.currency'));
             $gateway->setSupportedCurrencies($currencies);
             $gateway->setCallbackUrl(config('payways.gateways.state.returnUrl'));
+
             return $gateway;
         });
     }
