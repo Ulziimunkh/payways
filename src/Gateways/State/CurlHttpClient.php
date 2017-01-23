@@ -56,6 +56,7 @@ class CurlHttpClient implements HttpClient
 
         $xml = new Xml();
         $xml->loadFromString($ret);
+
         return $xml;
     }
 
