@@ -2,9 +2,10 @@
 
 namespace Selmonal\Payways\Gateways\State;
 
+use Selmonal\Payways\RedirectResponseInterface;
 use Selmonal\Payways\Response;
 
-class ProcessResponse extends BaseResponse
+class ProcessResponse extends BaseResponse implements RedirectResponseInterface
 {
     /**
      * @return bool
@@ -43,5 +44,29 @@ class ProcessResponse extends BaseResponse
             'orderId'   => $this->data->get('Response.Order.OrderID'),
             'sessionId' => $this->data->get('Response.Order.SessionID'),
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectMethod()
+    {
+        return 'GET';
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectUrl()
+    {
+        return $this->data->get('Response.Order.URL');
+    }
+
+    /**
+     * @return array
+     */
+    public function getRedirectData()
+    {
+        return [];
     }
 }
