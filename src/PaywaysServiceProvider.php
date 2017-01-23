@@ -132,7 +132,8 @@ class PaywaysServiceProvider extends ServiceProvider
 
         $this->app->bind('payways.state', function () {
             $gateway = $this->app->make('Selmonal\Payways\Gateways\State\Gateway');
-            $currencies = explode(',', $this->app['config']->get('payways.gateways.state.currency'));
+            $gateway->setMerchantId(config('payways.gateways.state.merchantId'));
+            $currencies = explode(',', config('payways.gateways.state.currency'));
             $gateway->setSupportedCurrencies($currencies);
             $gateway->setCallbackUrl(config('payways.gateways.state.returnUrl'));
             return $gateway;
