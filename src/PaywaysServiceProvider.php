@@ -118,7 +118,7 @@ class PaywaysServiceProvider extends ServiceProvider
     private function registerState()
     {
         $this->app->bind('Selmonal\Payways\Gateways\State\CurlHttpClient', function () {
-            return new Selmonal\Payways\Gateways\State\CurlHttpClient(
+            return new \Selmonal\Payways\Gateways\State\CurlHttpClient(
                 config('payways.gateways.state.server'),
                 config('payways.gateways.state.username'),
                 config('payways.gateways.state.password')

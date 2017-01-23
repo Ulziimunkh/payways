@@ -22,12 +22,13 @@ return [
         ],
 
         'state' => [
-            'server'    => 'https://202.131.225.149:2233/Exec',
+            'server'    => env('STATE_SERVER', 'https://202.131.225.149:2233/Exec'),
+            'username'  => env('STATE_MERCHANT'),
             'username'  => env('STATE_USERNAME'),
             'password'  => env('STATE_PASSWORD'),
             'currency'  => env('STATE_CURRENCY', 'mnt'),
             'returnUrl' => 'payways/state',
-        ]
+        ],
 
     ],
 

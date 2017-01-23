@@ -4,7 +4,7 @@ namespace Selmonal\Payways\Gateways\State;
 
 use Selmonal\Xml\Xml;
 
-class CurlHttpClient
+class CurlHttpClient implements HttpClient
 {
     /**
      * @var string
