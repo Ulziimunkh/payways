@@ -95,7 +95,7 @@ class Gateway extends AbstractGateway
 
     public function getCallbackUrl($transaction)
     {
-        return sprintf('%s?trans_id=%s', $this->callbackUrl, $transaction->id);
+        return url(sprintf('%s?trans_id=%s', $this->callbackUrl, $transaction->id));
     }
 
     public function setCallbackUrl($callbackUrl)
