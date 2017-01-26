@@ -21,7 +21,7 @@ abstract class BaseResponse extends Response
         parent::__construct($gateway, $transaction, $data);
 
         if ($this->getCode() !== '00') {
-            throw new ConnectionException($gateway, $this->getMessage(), $this->getCode());
+            throw new ConnectionException($gateway, $this->getRequestMessage(), $this->getCode());
         }
     }
 
@@ -36,11 +36,11 @@ abstract class BaseResponse extends Response
     }
 
     /**
-     * Get message for the respone.
+     * Get response message for the respone.
      *
      * @return string|null
      */
-    public function getMessage()
+    public function getRequestMessage()
     {
         switch ($this->getCode()) {
             case '00': return 'successfully'; break;
