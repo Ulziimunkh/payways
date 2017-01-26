@@ -40,10 +40,7 @@ class ProcessResponse extends BaseResponse implements RedirectResponseInterface
      */
     public function getTransactionReference()
     {
-        return json_encode([
-            'orderId'   => $this->data->get('Response.Order.OrderID'),
-            'sessionId' => $this->data->get('Response.Order.SessionID'),
-        ]);
+        return json_encode($this->getOrderData());
     }
 
     /**
@@ -55,11 +52,25 @@ class ProcessResponse extends BaseResponse implements RedirectResponseInterface
     }
 
     /**
+     * @return array
+     */
+    public function getOrderData()
+    {
+        return [
+            'orderId'   => $this->data->get('Response.Order.OrderID'),
+            'sessionId' => $this->data->get('Response.Order.SessionID'),
+        ];
+    }
+
+    /**
      * @return string
      */
     public function getRedirectUrl()
     {
-        return $this->data->get('Response.Order.URL');
+        return $this->data->get('Response.Order.URL').'?'.http_build_query([
+            'ORDERID'   => $this->getOrderData()['orderId'],
+            'SESSIONID' => $this->getOrderData()['sessionId'],
+        ]);
     }
 
     /**
