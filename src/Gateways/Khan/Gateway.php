@@ -92,7 +92,6 @@ class Gateway extends BaseGateway
 
         $response = $this->send(static::VERIFY_URL, $parameters);
 
-
         if (!$response->isSuccessful()) {
             throw new ConnectionException($this, (string) $response->getBody());
         }
