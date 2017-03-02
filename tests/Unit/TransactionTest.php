@@ -20,7 +20,7 @@ class TransactionTest extends TestCase
             $table->timestamps();
         });
 
-        Config::set('payways::user.model', UserStub::class);
+        Config::set('payways.user.model', UserStub::class);
         
         $user = UserStub::create(['name' => 'selmonal']);
 

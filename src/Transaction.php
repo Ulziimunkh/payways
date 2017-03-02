@@ -96,7 +96,7 @@ class Transaction extends Model
      */
     public function user()
     {
-        return $this->belongsTo(config('payways::user.model'));
+        return $this->belongsTo(config('payways.user.model'));
     }
 
     /**

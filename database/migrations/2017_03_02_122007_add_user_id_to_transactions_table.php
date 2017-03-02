@@ -14,7 +14,7 @@ class AddUserIdToTransactionsTable extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
             $table->integer('user_id')->unsigned()->index()->nullable();
-            $table->foreign('user_id')->references('id')->on(config('payways::user.table'))->onDelete('set null')->onUpdate('restrict');
+            $table->foreign('user_id')->references('id')->on(config('payways.user.table'))->onDelete('set null')->onUpdate('restrict');
         });
     }
 
