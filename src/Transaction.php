@@ -32,7 +32,7 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-        'amount', 'currency', 'description', 'gateway'
+        'amount', 'currency', 'description', 'gateway',
     ];
 
     /**
@@ -91,7 +91,7 @@ class Transaction extends Model
 
     /**
      * The user that is making transaction.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()

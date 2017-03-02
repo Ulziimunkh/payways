@@ -10,7 +10,7 @@ use Selmonal\Payways\Response;
 use Selmonal\Payways\Transaction;
 
 class TransactionTest extends TestCase
-{   
+{
     /** @test */
     public function it_should_record_the_currently_authenticated_user_as_transactioner()
     {
@@ -21,7 +21,7 @@ class TransactionTest extends TestCase
         });
 
         Config::set('payways.user.model', UserStub::class);
-        
+
         $user = UserStub::create(['name' => 'selmonal']);
 
         Auth::login($user);
@@ -30,7 +30,7 @@ class TransactionTest extends TestCase
             'amount'      => 3000,
             'currency'    => 'mnt',
             'description' => 'Test description.',
-            'gateway'     => 'log'
+            'gateway'     => 'log',
         ]);
 
         $this->assertEquals(Auth::user()->id, $transaction->fresh()->user_id);
