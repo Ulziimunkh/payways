@@ -42,9 +42,9 @@ class StateGatewayTest extends TestCase
         $xml->loadFromString($this->client->lastSent());
         $this->assertEquals('4500000', $xml->get('Request.Order.Amount'));
         $this->assertEquals('merchant', $xml->get('Request.Order.Merchant'));
-        $this->assertEquals('callback-url?trans_id='.$this->transaction->id, $xml->get('Request.Order.ApproveURL'));
-        $this->assertEquals('callback-url?trans_id='.$this->transaction->id, $xml->get('Request.Order.CancelURL'));
-        $this->assertEquals('callback-url?trans_id='.$this->transaction->id, $xml->get('Request.Order.DeclineURL'));
+        $this->assertEquals(url('callback-url?trans_id='.$this->transaction->id), $xml->get('Request.Order.ApproveURL'));
+        $this->assertEquals(url('callback-url?trans_id='.$this->transaction->id), $xml->get('Request.Order.CancelURL'));
+        $this->assertEquals(url('callback-url?trans_id='.$this->transaction->id), $xml->get('Request.Order.DeclineURL'));
         $this->assertEquals('Test description.', $xml->get('Request.Order.Description'));
         $this->assertEquals(496, $xml->get('Request.Order.Currency'));
 

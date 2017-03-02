@@ -5,6 +5,7 @@ namespace Selmonal\Payways;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Transaction extends Model
 {
@@ -31,7 +32,7 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-        'amount', 'currency', 'description',
+        'amount', 'currency', 'description', 'gateway'
     ];
 
     /**
@@ -67,6 +68,12 @@ class Transaction extends Model
                 }
             }
         });
+
+        static::creating(function (Transaction $transaction) {
+            if (Auth::user()) {
+                $transaction->user()->associate(Auth::user());
+            }
+        });
     }
 
     /**
@@ -80,6 +87,16 @@ class Transaction extends Model
     public static function findByReference($reference, $gateway)
     {
         return self::whereReference($reference)->whereGateway($gateway)->first();
+    }
+
+    /**
+     * The user that is making transaction.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(config('payways::user.model'));
     }
 
     /**
