@@ -21,6 +21,7 @@ class PaywaysServiceProvider extends ServiceProvider
         $this->registerLog();
         $this->registerKhan();
         $this->registerGolomt();
+        $this->registerState();
 
         $this->app->singleton('payways', function ($app) {
 
@@ -104,6 +105,37 @@ class PaywaysServiceProvider extends ServiceProvider
             $gateway->setSupportedCurrencies(
                 explode(',', $this->app['config']->get('payways.gateways.golomt.currency'))
             );
+
+            return $gateway;
+        });
+    }
+
+    /**
+     * Register a gateway for the State Bank.
+     *
+     * @return void
+     */
+    private function registerState()
+    {
+        $this->app->bind('Selmonal\Payways\Gateways\State\CurlHttpClient', function () {
+            return new \Selmonal\Payways\Gateways\State\CurlHttpClient(
+                config('payways.gateways.state.server'),
+                config('payways.gateways.state.username'),
+                config('payways.gateways.state.password')
+            );
+        });
+
+        $this->app->bind(
+            'Selmonal\Payways\Gateways\State\HttpClient',
+            'Selmonal\Payways\Gateways\State\CurlHttpClient'
+        );
+
+        $this->app->bind('payways.state', function () {
+            $gateway = $this->app->make('Selmonal\Payways\Gateways\State\Gateway');
+            $gateway->setMerchantId(config('payways.gateways.state.merchantId'));
+            $currencies = explode(',', config('payways.gateways.state.currency'));
+            $gateway->setSupportedCurrencies($currencies);
+            $gateway->setCallbackUrl(config('payways.gateways.state.returnUrl'));
 
             return $gateway;
         });

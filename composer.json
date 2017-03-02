@@ -9,25 +9,29 @@
         }
     ],
     "require": {
-        "illuminate/Database": "~5.0",
+        "illuminate/database": "~5.0",
+        "illuminate/auth": "~5.0",
         "illuminate/http": "~5.0",
         "illuminate/config": "~5.0",
-        "guzzle/guzzle": "^3.9",
-        "illuminate/routing": "~5.0",
-        "fergusean/nusoap": "^0.9.5"
+        "fergusean/nusoap": "^0.9.5",
+        "guzzlehttp/guzzle": "^6.2",
+        "selmonal/xml": "^0.0.1"
     },
     "require-dev": {
-        "omnipay/tests": "~2.0"
+        "orchestra/testbench": "~3.0",
+        "orchestra/database": "~3.0",
+        "phpunit/phpunit": "^5.7",
+        "doctrine/dbal": "^2.5"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Selmonal\\Payways\\": "src"
         }
     },
     "autoload-dev": {
-        "psr-4": {
-            "Selmonal\\Payways\\": "tests"
-        }
+        "files": [
+            "tests/TestCase.php"
+        ]
     }
 }

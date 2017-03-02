@@ -21,6 +21,20 @@ return [
             'currency'      => env('GOLOMT_CURRENCY', 'mnt'),
         ],
 
+        'state' => [
+            'server'     => env('STATE_SERVER', 'https://202.131.225.149:2233/Exec'),
+            'merchantId' => env('STATE_MERCHANT'),
+            'username'   => env('STATE_USERNAME'),
+            'password'   => env('STATE_PASSWORD'),
+            'currency'   => env('STATE_CURRENCY', 'mnt'),
+            'returnUrl'  => url('payways/state'),
+        ],
+
     ],
+
+    'user' => [
+        'table' => 'users',
+        'model' => 'App\User',
+    ]
 
 ];

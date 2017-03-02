@@ -2,7 +2,7 @@
 
 namespace Selmonal\Payways\Gateways\Khan;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use Selmonal\Payways\Exceptions\ConnectionException;
 use Selmonal\Payways\Gateway as BaseGateway;
 use Selmonal\Payways\Response;
@@ -38,7 +38,7 @@ class Gateway extends BaseGateway
      *
      * @param Client $client
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client = null)
     {
         $this->client = $client;
     }
@@ -62,11 +62,11 @@ class Gateway extends BaseGateway
 
         $response = $this->send(static::REGISTER_URL, $parameters);
 
-        if (!$response->isSuccessful()) {
+        if ($response->getStatusCode() !== 200) {
             throw new ConnectionException($this, (string) $response->getBody());
         }
 
-        $data = $response->json();
+        $data = $this->getData($response);
 
         if ($data['errorCode'] != '0') {
             throw new ConnectionException($this, $data['errorMessage'], $data['errorCode']);
@@ -92,17 +92,27 @@ class Gateway extends BaseGateway
 
         $response = $this->send(static::VERIFY_URL, $parameters);
 
-        if (!$response->isSuccessful()) {
+        if ($response->getStatusCode() !== 200) {
             throw new ConnectionException($this, (string) $response->getBody());
         }
 
-        $data = $response->json();
+        $data = $this->getData($response);
 
         if ($data['ErrorCode'] != '0' && $data['ErrorCode'] != '2') {
             throw new ConnectionException($this, $data['ErrorMessage'], $data['ErrorCode']);
         }
 
         return new CompleteProcessResponse($this, $transaction, $data);
+    }
+
+    /**
+     * @param \GuzzleHttp\Psr7\Response $response
+     *
+     * @return array
+     */
+    public function getData($response)
+    {
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**
@@ -113,7 +123,7 @@ class Gateway extends BaseGateway
      */
     private function send($url, $parameters)
     {
-        return $this->client->get($url.'?'.http_build_query($parameters))->send();
+        return $this->client->get($url.'?'.http_build_query($parameters));
     }
 
     /**
@@ -133,8 +143,18 @@ class Gateway extends BaseGateway
             'jsonParams'  => [
                 'orderNumber' => $transaction->getKey(),
             ],
-            'returnUrl' => $this->getReturnUrl(),
+            'returnUrl' => url($this->getReturnUrl()),
         ];
+    }
+
+    /**
+     * Set the http client.
+     *
+     * @param Client $client.
+     */
+    public function setHttpClient(Client $client)
+    {
+        $this->client = $client;
     }
 
     /**
