@@ -47,7 +47,7 @@ class PaywaysServiceProvider extends ServiceProvider
 
         // Publish config
         $this->publishes([
-            __DIR__.'/../resources/config/config.php' => config_path('payways.php'),
+            __DIR__.'/../config/config.php' => config_path('payways.php'),
         ], 'config');
     }
 
