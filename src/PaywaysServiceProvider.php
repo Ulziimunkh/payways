@@ -135,8 +135,7 @@ class PaywaysServiceProvider extends ServiceProvider
             $gateway->setMerchantId(config('payways.gateways.state.merchantId'));
             $currencies = explode(',', config('payways.gateways.state.currency'));
             $gateway->setSupportedCurrencies($currencies);
-            $gateway->setCallbackUrl(config('payways.gateways.state.returnUrl'));
-
+            $gateway->setCallbackUrl(url(config('payways.gateways.state.returnUrl', 'payways/state')));
             return $gateway;
         });
     }
