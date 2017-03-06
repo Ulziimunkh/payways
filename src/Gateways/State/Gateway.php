@@ -57,7 +57,7 @@ class Gateway extends AbstractGateway
                 </Order>
             </Request>
         </TKKPG>');
-
+        
         return new ProcessResponse($this, $transaction, $xml);
     }
 

@@ -3,6 +3,7 @@
 namespace Selmonal\Payways;
 
 use Illuminate\Support\Manager;
+use ReflectionException, RuntimeException;
 
 class GatewayManager extends Manager
 {
@@ -23,6 +24,10 @@ class GatewayManager extends Manager
      */
     protected function createDriver($driver)
     {
-        return $this->app->make('payways.'.$driver);
+        try {
+            return $this->app->make('payways.'.$driver);
+        } catch (ReflectionException $e) {
+            throw new RuntimeException("Couldn't find gateway named ".$driver);
+        }
     }
 }
