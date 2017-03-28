@@ -22,6 +22,7 @@ class PaywaysServiceProvider extends ServiceProvider
         $this->registerKhan();
         $this->registerGolomt();
         $this->registerState();
+        $this->registerTDB();
 
         $this->app->singleton('payways', function ($app) {
 
@@ -136,6 +137,27 @@ class PaywaysServiceProvider extends ServiceProvider
             $currencies = explode(',', config('payways.gateways.state.currency'));
             $gateway->setSupportedCurrencies($currencies);
             $gateway->setCallbackUrl(url(config('payways.gateways.state.returnUrl', 'payways/state')));
+            return $gateway;
+        });
+    }
+
+    /**
+     * Register a gateway for the TDB.
+     *
+     * @return void
+     */
+    private function registerTDB()
+    {
+        $this->app->bind('payways.tdb', function () {
+            $gateway = new \Selmonal\Payways\Gateways\TDB\Gateway(
+                config('payways.gateways.tdb.merchantId'),
+                config('payways.gateways.tdb.password')
+            );
+            
+            $gateway->setSupportedCurrencies(
+                explode(',', config('payways.gateways.tdb.currency'))
+            );
+
             return $gateway;
         });
     }

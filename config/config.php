@@ -30,6 +30,13 @@ return [
             'returnUrl'  => 'payways/state',
         ],
 
+        'tdb' => [
+            'server'      => env('TDB_SERVER'),
+            'merchantId'  => env('TDB_MERCHANT'),
+            'public_cert' => storage_path('payways/public.cert'),
+            'currency'    => env('TDB_CURRENCY', 'mnt'),
+            'returnUrl'   => 'payways/tdb',
+        ]
     ],
 
     'user' => [
