@@ -2,11 +2,8 @@
 
 namespace Selmonal\Payways\Gateways\TDB;
 
-use Selmonal\Payways\Exceptions\GatewayException;
 use Selmonal\Payways\Gateway as BaseGateway;
 use Selmonal\Payways\Transaction;
-use Selmonal\Xml\Xml;
-use DOMDocument;
 
 class Gateway extends BaseGateway
 {

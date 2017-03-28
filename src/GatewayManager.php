@@ -3,7 +3,8 @@
 namespace Selmonal\Payways;
 
 use Illuminate\Support\Manager;
-use ReflectionException, RuntimeException;
+use ReflectionException;
+use RuntimeException;
 
 class GatewayManager extends Manager
 {
