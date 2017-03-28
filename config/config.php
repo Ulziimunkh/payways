@@ -36,7 +36,7 @@ return [
             'public_cert' => storage_path('payways/public.cert'),
             'currency'    => env('TDB_CURRENCY', 'mnt'),
             'returnUrl'   => 'payways/tdb',
-        ]
+        ],
     ],
 
     'user' => [
