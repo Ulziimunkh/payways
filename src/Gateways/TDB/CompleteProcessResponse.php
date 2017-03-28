@@ -4,16 +4,15 @@ namespace Selmonal\Payways\Gateways\TDB;
 
 use DOMDocument;
 use Selmonal\Payways\Exceptions\GatewayException;
-use Selmonal\Payways\Gateways\TDB\Gateway;
 use Selmonal\Payways\Response;
 use Selmonal\Payways\Transaction;
 use Selmonal\Xml\Xml;
 
 class CompleteProcessResponse extends Response
 {
-	protected $xml;
+    protected $xml;
 
-	/**
+    /**
      * CompleteProcessResponse constructor.
      *
      * @param Gateway     $gateway
@@ -24,8 +23,8 @@ class CompleteProcessResponse extends Response
     {
         parent::__construct($gateway, $transaction, $data);
 
-    	$this->xml = new Xml;
-    	$this->xml->loadFromString($data);
+        $this->xml = new Xml();
+        $this->xml->loadFromString($data);
 
         // Validate if transaction has approved.
         if ($this->isSuccessful()) {
@@ -33,12 +32,12 @@ class CompleteProcessResponse extends Response
         }
     }
 
-	/**
+    /**
      * @return bool
      */
     public function isSuccessful()
     {
-    	return $this->getStatus() === Response::STATUS_APPROVED;
+        return $this->getStatus() === Response::STATUS_APPROVED;
     }
 
     /**
@@ -46,11 +45,11 @@ class CompleteProcessResponse extends Response
      */
     public function getStatus()
     {
-    	switch (strtolower($this->xml->get('OrderStatus'))) {
-    		case 'approved': return Response::STATUS_APPROVED; break;
+        switch (strtolower($this->xml->get('OrderStatus'))) {
+            case 'approved': return Response::STATUS_APPROVED; break;
             case 'canceled': return Response::STATUS_CANCELLED; break;
-    		default: return Response::STATUS_DECLINED; break;
-    	}
+            default: return Response::STATUS_DECLINED; break;
+        }
     }
 
     /**
@@ -71,37 +70,37 @@ class CompleteProcessResponse extends Response
 
     /**
      * Validate the given xml response.
-     * 
-     * @param  string $xml
+     *
+     * @param string $xml
      */
     private function validateXmlData($xml)
     {
-        # Load Signed XML
+        // Load Signed XML
         $xmlDoc = new DOMDocument();
         $xmlDoc->loadXML($xml);
 
-        # Get DigestValue
-        $sigDigest = $xmlDoc->documentElement->getElementsByTagName("DigestValue")->item(0)->nodeValue;
-        $signedInfo = $xmlDoc->getElementsByTagName("SignedInfo")->item(0)->C14N(true, true);
+        // Get DigestValue
+        $sigDigest = $xmlDoc->documentElement->getElementsByTagName('DigestValue')->item(0)->nodeValue;
+        $signedInfo = $xmlDoc->getElementsByTagName('SignedInfo')->item(0)->C14N(true, true);
 
-        # Get SignatureValue
-        $signature = base64_decode($xmlDoc->documentElement->getElementsByTagName("SignatureValue")->item(0)->nodeValue);
-        
-        # Check Certificate
+        // Get SignatureValue
+        $signature = base64_decode($xmlDoc->documentElement->getElementsByTagName('SignatureValue')->item(0)->nodeValue);
+
+        // Check Certificate
         $ok = openssl_verify($signedInfo, $signature, $this->publicCertificate(), OPENSSL_ALGO_SHA1);
 
         if ($ok != 1) {
             throw new GatewayException($this->getGateway(), 'Invalid certificate.');
         }
-        
-        # Remove Signature from XML
-        $elm=$xmlDoc->documentElement->getElementsByTagName("Signature")->item(0);
+
+        // Remove Signature from XML
+        $elm = $xmlDoc->documentElement->getElementsByTagName('Signature')->item(0);
         $xmlDoc->documentElement->removeChild($elm);
-        
-        # Generate Digest Value from XML Data
+
+        // Generate Digest Value from XML Data
         $xmlDigest = base64_encode(sha1($xmlDoc->documentElement->C14N(), true));
-        
-        # Check Generate Digest
+
+        // Check Generate Digest
         if ($sigDigest != $xmlDigest) {
             throw new GatewayException($this->getGateway(), 'Invalid XML Data.');
         }
@@ -109,7 +108,7 @@ class CompleteProcessResponse extends Response
 
     /**
      * Get the public certificate.
-     * 
+     *
      * @return string
      */
     public function publicCertificate()
@@ -121,7 +120,7 @@ class CompleteProcessResponse extends Response
 
     /**
      * Get the public certificate file path.
-     * 
+     *
      * @return string
      */
     private function publicCertificateFilePath()

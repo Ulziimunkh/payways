@@ -4,12 +4,6 @@ namespace Selmonal\Payways;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\View\View;
-use PaywaysFacade as Payways;
-use Selmonal\Payways\Exceptions\ConnectionException;
-use Selmonal\Payways\Exceptions\GatewayException;
-use Selmonal\Payways\Response;
-use Selmonal\Payways\Transaction;
 use Selmonal\Xml\Xml;
 
 abstract class WebCallbackController extends Controller
@@ -17,8 +11,9 @@ abstract class WebCallbackController extends Controller
     /**
      * Handle bank callback request.
      *
-     * @param  Request $request
-     * @param  string $gateway
+     * @param Request $request
+     * @param string  $gateway
+     *
      * @return \Illuminate\Http\Response
      */
     public function handleCallback(Request $request, $gateway)
@@ -48,11 +43,12 @@ abstract class WebCallbackController extends Controller
         abort(404);
     }
 
-   /**
+    /**
      * Handle transaction response.
      *
-     * @param  Transaction $transaction
-     * @param  Response $response
+     * @param Transaction $transaction
+     * @param Response    $response
+     *
      * @return \Illuminate\Http\Response
      */
     protected function processed($transaction, $response)
@@ -67,8 +63,9 @@ abstract class WebCallbackController extends Controller
     /**
      * Handle success transaction response.
      *
-     * @param  Transaction $transaction
-     * @param  Response $response
+     * @param Transaction $transaction
+     * @param Response    $response
+     *
      * @return \Illuminate\Http\Response
      */
     abstract protected function onSuccess($transaction, $response);
@@ -76,21 +73,23 @@ abstract class WebCallbackController extends Controller
     /**
      * Handle failed transaction response.
      *
-     * @param  Transaction $transaction
-     * @param  Response $response
+     * @param Transaction $transaction
+     * @param Response    $response
+     *
      * @return \Illuminate\Http\Response
      */
     abstract protected function onFail($transaction, $response);
 
     /**
      * Get the tdb order id from the request.
-     * 
-     * @param  Request $request
-     * @return string        
+     *
+     * @param Request $request
+     *
+     * @return string
      */
     private function getTDBOrderId($request)
     {
-        $xml = new Xml;
+        $xml = new Xml();
         $xml->loadFromString($request->get('xmlmsg'));
 
         return $xml->get('OrderID');
