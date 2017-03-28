@@ -15,8 +15,7 @@
         "illuminate/config": "~5.0",
         "fergusean/nusoap": "^0.9.5",
         "guzzlehttp/guzzle": "^6.2",
-        "selmonal/xml": "^0.0.1",
-        "lstrojny/fxmlrpc": "0.8.4"
+        "selmonal/xml": "^0.0.1"
     },
     "require-dev": {
         "orchestra/testbench": "~3.0",
