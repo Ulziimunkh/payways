@@ -1,19 +1,9 @@
 ## Суурьлуулалт
 
-composer.json файлд доорх байдлаар энэ git агуулхыг бүртгэнэ.
+Composer ашиглан төсөлдөө нэмнэ.
 
 ```
-"repositories": [
-{
-    "type": "git",
-    "url":  "git@github.com:selmonal/payways.git"
-}
-```
-
-Тэгээд require хэсэгт доорх байдлаар дуудна.
-
-```
-"selmonal/payways": "dev-master"
+composer require selmonal/payways
 ```
 
 Доорх ServiceProvider болон Facade ийг app.php тохиргооний файлд бүртгэнэ.
